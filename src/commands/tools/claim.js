@@ -3,15 +3,15 @@ const fs = require('fs')
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('help')
-        .setDescription('returns help'),
+        .setName('claim')
+        .setDescription('claims a country'),
     async execute( interaction, client )
     {
         const message = await interaction.deferReply({
             fetchReply: true
         });
 
-        const newMessage = `API latency: ${client.ws.ping}\nClient Ping: ${message.createdTimeStamp - interaction.createdTimeStamp}`
+        const newMessage = ``
         await interaction.editReply({
             content: newMessage
         });

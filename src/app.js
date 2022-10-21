@@ -5,7 +5,7 @@ const { Client, collection, GatewayIntentBits, Collection } = require('discord.j
 const fs = require('fs')
 
 const client = new Client({ intents: GatewayIntentBits.Guilds });
-client.commands = new Collection()
+client.commands = new Collection();
 client.commandArray = []
 
 const raw = fs.readFileSync('src/CountryData/data.json')
