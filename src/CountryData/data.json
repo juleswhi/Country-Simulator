@@ -12,11 +12,10 @@
         ]
     }
     
-}
-,
+},
 {
     "Name": "Romania",
-    "User": "Dack",
+    "User": "Dack#7761",
     "Resources":
     {
         "InvestMoney": 100,
@@ -26,4 +25,6 @@
         ]
     }
     
-}]
+}
+
+]

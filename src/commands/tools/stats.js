@@ -21,13 +21,7 @@ module.exports = {
 
 
             .setTimestamp(Date.now()) // Potentially create custom time scale, 1 day irl = 1 year
-            // .addFields([
-            //     { name: `Country Name`, value: `Poland` },
-            //     { name: `Investment Money`, value: `100B`, inline: true},
-            //     { name: `Yearly Income`, value: `1B`, inline: true},
-            //     { name: `Special Resource`, value: `Drugs`},
-            //     { name: `Approval Rating`, value: `70`}
-            // ])
+            
 
             for(const Country of CountryData)
             {
@@ -40,7 +34,6 @@ module.exports = {
                         { name: `Special Resource`, value: Country.Resources.SpecialResource},
                         { name: `Approval Rating`, value: Country.ApprovalRating}
                     ])
-                    console.log()
                 }
             }
 

@@ -21,7 +21,7 @@ module.exports = (client) => {
                 break;
 
                 default:
-                    console.log(`defuakt`)
+                    console.log(`defualt`)
                     break;
             }
         }

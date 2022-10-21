@@ -3,8 +3,8 @@ const fs = require('fs')
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('ping')
-        .setDescription('returns pong'),
+        .setName('help')
+        .setDescription('Returns a helpful help menu'),
     async execute( interaction, client )
     {
         const message = await interaction.deferReply({
