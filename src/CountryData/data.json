@@ -8,7 +8,7 @@
         "YearlyIncome": "1",
         "SpecialResource": "Bin Bags",
         "InvestedCompanies": [
-            { "name": "Intel", "sector": "tech"}
+            { "name": "IVm", "sector": "tech"}
         ]
     }
     
@@ -16,12 +16,15 @@
 {
     "Name": "Romania",
     "User": "Dack#7761",
-    "Resources":
+    "ApprovalRating": "99",
+    "Resources": 
     {
-        "InvestMoney": 100,
-        "YearlyIncome": 1,
+        "InvestMoney": "500",
+        "YearlyIncome": "9",
+        "SpecialResource": "Wood",
         "InvestedCompanies": [
-            { "name": "Romania Airlines", "sector": "transport"}
+            { "name": "Intel", "sector": "tech" },
+            { "name": "Romanian Army", "sector": "defense"}
         ]
     }
     
