@@ -4,7 +4,11 @@ const fs = require('fs')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('help')
+<<<<<<< HEAD
         .setDescription('returns help'),
+=======
+        .setDescription('Returns a helpful help menu'),
+>>>>>>> main
     async execute( interaction, client )
     {
         const message = await interaction.deferReply({
