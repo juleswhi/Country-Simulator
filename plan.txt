@@ -1,0 +1,15 @@
+json holding all country stats/owners/resources?
+
+commands for
+    claiming country;
+    making alliances;
+    researching resources;
+    making statements;
+    politcal voting;
+    approval rating;
+
+
+separate channels for each country;
+
+    create channel if country is claimed;
+    only one country per user;
