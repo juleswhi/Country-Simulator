@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-module.export = (client) => {
+module.exports = (client) => {
   client.handleComponents = async () => {
     const componentFolder = fs.readdirSync("./src/components");
     for (const folder of componentFolder) {
@@ -8,21 +8,20 @@ module.export = (client) => {
         .readdirSync(`./src/components/${folder}`)
         .filter((file) => file.endsWith(".js"));
 
-        switch(folder) {
-            case "buttons":
-                for(const file of componentFiles)
-                {
-                    const button = require(`../../components/${folder}/${file}`)
-                    
-                }
+      const { buttons } = client;
 
-                break;
-            
-            default:
+      switch (folder) {
+        case "buttons":
+          for (const file of componentFiles) {
+            const button = require(`../../components/${folder}/${file}`);
+            buttons.set(button.data.name, button);
+          }
 
-                break;
+          break;
 
-        }
+        default:
+          break;
+      }
     }
   };
 };
