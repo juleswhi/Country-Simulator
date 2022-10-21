@@ -1,5 +1,4 @@
 require('dotenv').config()
-
 const { token } = process.env;
 
 const { Client, collection, GatewayIntentBits, Collection } = require('discord.js');
@@ -8,6 +7,12 @@ const fs = require('fs')
 const client = new Client({ intents: GatewayIntentBits.Guilds });
 client.commands = new Collection()
 client.commandArray = []
+
+const raw = fs.readFileSync('src/CountryData/data.json')
+const CountryData = JSON.parse(raw)
+exports.CountryData = CountryData;
+
+
 
 
 const functionFolders = fs.readdirSync('./src/functions')

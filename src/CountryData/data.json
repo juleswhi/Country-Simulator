@@ -1,0 +1,29 @@
+[{
+    "Name": "Poland",
+    "User": "julsie!#5267",
+    "ApprovalRating": "70",
+    "Resources": 
+    {
+        "InvestMoney": "100",
+        "YearlyIncome": "1",
+        "SpecialResource": "Bin Bags",
+        "InvestedCompanies": [
+            { "name": "Intel", "sector": "tech"}
+        ]
+    }
+    
+}
+,
+{
+    "Name": "Romania",
+    "User": "Dack",
+    "Resources":
+    {
+        "InvestMoney": 100,
+        "YearlyIncome": 1,
+        "InvestedCompanies": [
+            { "name": "Romania Airlines", "sector": "transport"}
+        ]
+    }
+    
+}]
