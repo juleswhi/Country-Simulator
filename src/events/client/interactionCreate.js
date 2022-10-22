@@ -1,4 +1,4 @@
-const { InteractionType } = require('discord.js')
+const { InteractionType } = require("discord.js");
 
 module.exports = {
   name: "interactionCreate",
@@ -41,16 +41,25 @@ module.exports = {
       } catch (error) {
         console.log(error);
       }
-    } else if(interaction.type == InteractionType.ModalSubmit)
-    {
+    } else if (interaction.type == InteractionType.ModalSubmit) {
       const { modals } = client;
       const { customId } = interaction;
-      const modal = modals.get(customId)
-      if(!modal) return new Error(`There is no code for this modal`)
+      const modal = modals.get(customId);
+      if (!modal) return new Error(`There is no code for this modal`);
       try {
-        await modal.execute(interaction, client)
+        await modal.execute(interaction, client);
       } catch (error) {
-        console.error(error)
+        console.error(error);
+      }
+    } else if (interaction.isContextMenuCommand()) {
+      const { commands } = client;
+      const { commandName } = interaction;
+      const contextCommand = commands.get(commandName);
+      if (!contextCommand) return;
+      try {
+        await contextCommand.execute(interaction, client);
+      } catch (error) {
+        console.log(error);
       }
     }
   },

@@ -17,8 +17,14 @@ module.exports = {
             .setLabel("Please Enter Your Chosen Country")
             .setRequired(true)
             .setStyle(TextInputStyle.Short);
+        
+        // const textInput1 = new TextInputBuilder()
+        //     .setCustomId("investInput")
+        //     .setLabel("Enter a country to invest")
+        //     .setRequired(false)
+        //     .setStyle(TextInputStyle.Short);
             
-            // add multitple text inputs here
+            
         
         modal.addComponents(new ActionRowBuilder().addComponents(textInput));
 
