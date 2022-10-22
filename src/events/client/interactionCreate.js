@@ -61,6 +61,18 @@ module.exports = {
       } catch (error) {
         console.log(error);
       }
+    } else if(interaction.type == InteractionType.ApplicationCommandAutocomplete)
+    {
+      const { commands } = client;
+      const { commandName } = interaction;
+      const command = commands.get(commandName);
+      if(!command) return;
+
+      try {
+        await command.autocomplete(interaction, client);
+      } catch (error) {
+        console.error(error)
+      }
     }
   },
 };

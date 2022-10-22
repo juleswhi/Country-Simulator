@@ -8,7 +8,8 @@ module.exports = {
     {
         
         await interaction.reply({
-            content: `${interaction.targetUser.displayAvatarURL()}`
+            // content: `${interaction.targetUser.displayAvatarURL()}`
+            // code for alliance
         });
 
     }

@@ -15,6 +15,10 @@ const raw = fs.readFileSync('src/CountryData/data.json')
 const CountryData = JSON.parse(raw)
 exports.CountryData = CountryData;
 
+const raw2 = fs.readFileSync('src/CountryData/countries.json')
+const countries = JSON.parse(raw2)
+exports.Countries = countries;
+
 
 
 
