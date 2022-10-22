@@ -7,6 +7,8 @@ const fs = require('fs')
 const client = new Client({ intents: GatewayIntentBits.Guilds });
 client.commands = new Collection();
 client.buttons = new Collection();
+client.selectMenus = new Collection();
+client.modals = new Collection();
 client.commandArray = []
 
 const raw = fs.readFileSync('src/CountryData/data.json')
