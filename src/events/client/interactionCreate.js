@@ -47,6 +47,7 @@ module.exports = {
       const modal = modals.get(customId);
       if (!modal) return new Error(`There is no code for this modal`);
       try {
+        await modal.run(interaction, client);
         await modal.execute(interaction, client);
       } catch (error) {
         console.error(error);
@@ -69,7 +70,7 @@ module.exports = {
       if(!command) return;
 
       try {
-        await command.autocomplete(interaction, client);
+        await command.autocomplete(interaction, client)
       } catch (error) {
         console.error(error)
       }
