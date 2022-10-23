@@ -2,6 +2,7 @@ const CountryData = require("../../app.js");
 const User = require("../../schemas/user");
 const Resources = require("../../app.js");
 const mongoose = require("mongoose");
+const { find } = require("../../schemas/user");
 
 module.exports = {
   data: {
@@ -9,7 +10,7 @@ module.exports = {
   },
   async execute(interaction, client) {
     await interaction.editReply({
-      content: ``
+      content: ``,
     });
   },
   async run(interaction, client) {
@@ -25,7 +26,7 @@ module.exports = {
         interaction.fields.getTextInputValue("countryInput").toLowerCase() ===
         CountryChoice.toLowerCase()
       ) {
-        channel.send(`Your Country of choice is, ${CountryChoice}`);
+        // channel.send(`Your Country of choice is, ${CountryChoice}`);
         Country = CountryChoice;
         hasCountry = true;
       }
@@ -36,7 +37,14 @@ module.exports = {
       );
 
     let userProfile = await User.findOne({ userName: interaction.user.tag });
-    if (!userProfile) {
+    const userData = await User.find();
+    let CountryTaken = false;
+    for (const user of userData) {
+      if (user.Country === Country) CountryTaken = true;
+      else CountryTaken = false;
+    }
+
+    if (!userProfile && !CountryTaken) {
       const propMoney = (Math.floor(Math.random() * 501) + 1).toString();
       userProfile = await new User({
         _id: mongoose.Types.ObjectId(),
@@ -58,8 +66,13 @@ module.exports = {
       });
       console.log(userProfile);
     } else {
+      let message;
+      if (!userProfile && CountryTaken)
+        message = `Your Country [ ${Country} ] has already been taken, Please Select A differnt Country`;
+      if (userProfile)
+        message = `You have already been added to the database, use /help to decide your next move!`;
       await interaction.reply({
-        content: `${interaction.user.tag} has already been added to the database`,
+        content: message,
       });
       console.log(userProfile);
     }

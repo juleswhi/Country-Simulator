@@ -13,3 +13,8 @@ separate channels for each country;
 
     create channel if country is claimed;
     only one country per user;
+
+
+
+ - If action adds to stats, chalk.green
+ - If actoin takes from stats, chalk.red
