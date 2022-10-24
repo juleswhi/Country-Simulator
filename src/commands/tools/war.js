@@ -2,18 +2,18 @@ const { SlashCommandBuilder, ModalBuilder, ActionRowBuilder, TextInputBuilder, T
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('alliance')
-        .setDescription('form an alliance!'),
+        .setName('war')
+        .setDescription('go to war!'),
     async execute( interaction, client )
     {
      
         const modal = new ModalBuilder()
-            .setCustomId(`inputAlliance`)
-            .setTitle(`Alliance Selector`);
+            .setCustomId(`inputWar`)
+            .setTitle(`War Selector`);
 
         const textInput = new TextInputBuilder()
-            .setCustomId("allianceInput")
-            .setLabel("Enter Country To Form Alliance")
+            .setCustomId("warInput")
+            .setLabel("Enter Country To Attack")
             .setRequired(true)
             .setStyle(TextInputStyle.Short);
 

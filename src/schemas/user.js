@@ -12,7 +12,13 @@ const userSchema = new Schema
         YearlyIncome: String,
         SpecialResource: String,
         InvestedCompanies: []
-    }
+    },
+    Relations:
+    {
+        ally: [],
+        enemy: []
+    },
+    land: []
 })
 
 module.exports = model("User", userSchema, "users")

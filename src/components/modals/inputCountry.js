@@ -58,6 +58,12 @@ module.exports = {
             resources[Math.floor(Math.random() * resources.length)],
           InvestedCompanies: [],
         },
+        Relations: 
+        {
+          ally: [],
+          enemy: []
+        },
+        land: ["Country"]
       });
 
       await userProfile.save().catch(console.error);

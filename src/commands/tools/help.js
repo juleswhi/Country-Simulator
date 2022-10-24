@@ -8,8 +8,17 @@ module.exports = {
     .setDescription("returns help"),
 
   async execute(interaction, client) {
+
+    const message = `
+
+    
+    `
+
+
+
+
     await interaction.reply({
-      content: `Help Page`,
+      content: message,
     });
   },
 };
