@@ -15,8 +15,8 @@ const userSchema = new Schema
     },
     Relations:
     {
-        ally: [],
-        enemy: []
+        ally: String,
+        enemy: String
     },
     land: []
 })

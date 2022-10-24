@@ -28,17 +28,16 @@ module.exports = {
         ) {
         for(const users of allUserData)
         {
-          const allies = userData.Relations.ally;
+          const ally = userData.Relations.ally;
           if(users.Country === CountryChoice)
           {
-            for(const ally of allies)
-            {
+            
               if(ally === users.userName)
               {
                 console.log(`You are already allianced with ${users.userName}!`)
                 return;
               }
-            }
+            
             
             console.log(`Forming Alliance with user: ${interaction.user.tag} with country: ${CountryChoice}`);
             const filter = { userName: interaction.user.tag };
@@ -48,7 +47,7 @@ module.exports = {
               {
                 Relations:
                 {
-                  ally: [allies.toString(), users.userName]
+                  ally: users.userName
                 }
               }
             }
