@@ -9,16 +9,14 @@ module.exports = {
 
   async execute(interaction, client) {
 
-    const message = `
     
+    try {
+    await interaction.reply({});
+    } catch (error) {
+      
+    }
+
+
     
-    `
-
-
-
-
-    await interaction.reply({
-      content: message,
-    });
   },
 };

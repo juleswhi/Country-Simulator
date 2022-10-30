@@ -40,5 +40,17 @@ module.exports = {
       name: `${user.Country}`,
       type: ChannelType.GuildCategory,
     });
+
+    const CategoryID = await guild.channels.cache.find(
+        //     (channel) =>
+        //       channel.type === ChannelType.GuildCategory &&
+        //       channel.name === `${userProfile.Country}`
+        //   );
+    const pointer = guild.channels.create({
+        name: `Test`,
+        type: ChannelType.GuildText
+    });
+    pointer.setParent()
+
   },
 };

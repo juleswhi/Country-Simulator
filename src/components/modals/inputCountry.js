@@ -3,15 +3,16 @@ const User = require("../../schemas/user");
 const Resources = require("../../app.js");
 const mongoose = require("mongoose");
 const { find } = require("../../schemas/user");
+const { ChannelType } = require("discord.js");
 
 module.exports = {
   data: {
     name: `inputCountry`,
   },
   async execute(interaction, client) {
-    await interaction.editReply({
-      content: ``,
-    });
+    try {
+      await interaction.reply({});
+    } catch (err) {}
   },
   async run(interaction, client) {
     const resources = Resources.Resources;
@@ -58,13 +59,46 @@ module.exports = {
             resources[Math.floor(Math.random() * resources.length)],
           InvestedCompanies: [],
         },
-        Relations: 
-        {
-          ally: [],
-          enemy: []
-        },
-        land: ["Country"]
+        land: ["Country"],
       });
+
+      const guild = await client.guilds.cache.get("1032948591112765510");
+      console.log(`User Profile = ${userProfile}`);
+      if (
+        client.channels.cache.find(
+          (channel) =>
+            channel.type === ChannelType.GuildCategory &&
+            channel.name === `${userProfile.Country}`
+        )
+      ) {
+      }
+      (async () => {
+        guild.channels.create({
+          name: `${userProfile.Country}`,
+          type: ChannelType.GuildCategory,
+        });
+      //   const CategoryID = await guild.channels.cache.find(
+      //     (channel) =>
+      //       channel.type === ChannelType.GuildCategory &&
+      //       channel.name === `${userProfile.Country}`
+      //   );
+      //   console.log(`cid : `)
+      //   // console.log(CategoryID.id)
+      //   // console.log(CategoryID.ID)
+      //   guild.channels.create({
+      //     name: "test",
+      //     type: ChannelType.GuildText,
+      //     parentId: CategoryID.id,
+      //   });
+      //   const CategoryIDB = await guild.channels.cache.find(
+      //     (channel) =>
+      //       channel.type === ChannelType.GuildText &&
+      //       channel.name === `test`
+      //   );
+      //   CategoryIDB.parentId = CategoryID.id;
+      //   console.log("Cat: ")
+      //   console.log(CategoryIDB)
+      })();
 
       await userProfile.save().catch(console.error);
       await interaction.reply({

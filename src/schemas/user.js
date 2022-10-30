@@ -13,11 +13,6 @@ const userSchema = new Schema
         SpecialResource: String,
         InvestedCompanies: []
     },
-    Relations:
-    {
-        ally: String,
-        enemy: String
-    },
     land: []
 })
 

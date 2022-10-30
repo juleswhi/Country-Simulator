@@ -7,10 +7,15 @@ module.exports = {
         .setDescription('returns pong'),
     async execute( interaction, client )
     {
+        try{
+            await interaction.reply({})
+        }
+        catch(err)
+        {
+
+        }
         
-        
-        await Alliance.deleteMany();
-        // await User.deleteMany();
+        await User.deleteOne({ userName: interaction.user.tag });
         
 
     }
