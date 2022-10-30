@@ -28,3 +28,12 @@ separate channels for each country;
 
 
 create category if channel / catgeory not found
+
+use guild.presence_count for votes
+
+
+
+channels
+ - Statement Room
+ - Government Meetins
+ - Local News
