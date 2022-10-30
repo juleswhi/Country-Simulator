@@ -50,8 +50,8 @@ module.exports = {
               }
             }
 
-            console.log(countryAally)
-            console.log(countryBally)
+            // console.log(countryAally)
+            // console.log(countryBally)
 
 
             
@@ -81,11 +81,13 @@ module.exports = {
               {
                 const result = await Alliance.create(alliance);
                 console.log(`Creating alliance request from country a to country b`)
+                statementsChannel.send(`${result.CountryA} is now allianced with ${result.CountryB}.`)
               }
               else if(!countryAally && !countryBally)
               {
                 const result = await Alliance.create(alliance);
                 console.log(`Creating alliance request from country a to country b`)
+                statementsChannel.send(`${result.CountryA} has sent a Alliance Request To ${result.CountryB}.`)
               }
             // statementsChannel.send(
             //   `An alliance between ${result.CountryA} and ${result.CountryB} has been made`

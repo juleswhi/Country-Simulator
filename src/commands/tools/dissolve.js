@@ -1,20 +1,25 @@
-const { SlashCommandBuilder } = require('discord.js')
+const { SlashCommandBuilder, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle } = require('discord.js')
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('dissolve')
-        .setDescription('returns pong'),
+        .setDescription('Dissolve an alliance!'),
     async execute( interaction, client )
     {
-        const message = await interaction.deferReply({
-            fetchReply: true
-        });
+     
+        const modal = new ModalBuilder()
+            .setCustomId(`inputDissolve`)
+            .setTitle(`Dissolve Selector`);
 
-        const newMessage = `API latency: ${client.ws.ping}\nClient Ping: ${message.createdTimeStamp - interaction.createdTimeStamp}`
-        await interaction.editReply({
-            content: newMessage
-        });
-        
+        const textInput = new TextInputBuilder()
+            .setCustomId("dissolveInput")
+            .setLabel("Enter Country To Form Alliance")
+            .setRequired(true)
+            .setStyle(TextInputStyle.Short);
+
+            modal.addComponents(new ActionRowBuilder().addComponents(textInput));
+
+            await interaction.showModal(modal);
         
     }
 }
