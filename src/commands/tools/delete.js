@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js')
 const User = require("../../schemas/user");
+const Alliance = require("../../schemas/alliance")
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('delete')
@@ -7,11 +8,9 @@ module.exports = {
     async execute( interaction, client )
     {
         
-        await interaction.reply()
-        {
-            content: `deleted`
-        }
-        await User.deleteMany();
+        
+        await Alliance.deleteMany();
+        // await User.deleteMany();
         
 
     }

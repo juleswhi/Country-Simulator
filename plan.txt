@@ -18,3 +18,13 @@ separate channels for each country;
 
  - If action adds to stats, chalk.green
  - If actoin takes from stats, chalk.red
+
+
+
+ Use command to find population of country?
+ {
+    Request country
+ }
+
+
+create category if channel / catgeory not found

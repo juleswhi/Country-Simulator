@@ -1,21 +1,21 @@
-const { SlashCommandBuilder, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle } = require('discord.js')
+const { SlashCommandBuilder, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, PermissionsBitField } = require('discord.js')
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('alliance')
-        .setDescription('form an alliance!'),
+        .setName('state')
+        .setDescription('Type a statement!'),
     async execute( interaction, client )
     {
      
         const modal = new ModalBuilder()
-            .setCustomId(`inputAlliance`)
+            .setCustomId(`inputStatement`)
             .setTitle(`Alliance Selector`);
 
         const textInput = new TextInputBuilder()
-            .setCustomId("allianceInput")
-            .setLabel("Enter Country To Form Alliance")
+            .setCustomId("statementInput")
+            .setLabel("Please Enter Your Statement")
             .setRequired(true)
-            .setStyle(TextInputStyle.Short);
+            .setStyle(TextInputStyle.Paragraph);
 
             modal.addComponents(new ActionRowBuilder().addComponents(textInput));
 

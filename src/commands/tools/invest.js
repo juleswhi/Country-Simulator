@@ -2,18 +2,18 @@ const { SlashCommandBuilder, ModalBuilder, ActionRowBuilder, TextInputBuilder, T
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('alliance')
-        .setDescription('form an alliance!'),
+        .setName('invest')
+        .setDescription('Invest In Something!'),
     async execute( interaction, client )
     {
      
         const modal = new ModalBuilder()
-            .setCustomId(`inputAlliance`)
-            .setTitle(`Alliance Selector`);
+            .setCustomId(`inputInvestment`)
+            .setTitle(`Invest Selector`);
 
         const textInput = new TextInputBuilder()
-            .setCustomId("allianceInput")
-            .setLabel("Enter Country To Form Alliance")
+            .setCustomId("investInput")
+            .setLabel("Enter Investment")
             .setRequired(true)
             .setStyle(TextInputStyle.Short);
 
