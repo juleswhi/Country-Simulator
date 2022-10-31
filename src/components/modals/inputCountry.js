@@ -64,40 +64,47 @@ module.exports = {
 
       const guild = await client.guilds.cache.get("1032948591112765510");
       console.log(`User Profile = ${userProfile}`);
-      if (
-        client.channels.cache.find(
-          (channel) =>
-            channel.type === ChannelType.GuildCategory &&
-            channel.name === `${userProfile.Country}`
-        )
-      ) {
-      }
+
       (async () => {
         guild.channels.create({
           name: `${userProfile.Country}`,
           type: ChannelType.GuildCategory,
         });
-      //   const CategoryID = await guild.channels.cache.find(
-      //     (channel) =>
-      //       channel.type === ChannelType.GuildCategory &&
-      //       channel.name === `${userProfile.Country}`
-      //   );
-      //   console.log(`cid : `)
-      //   // console.log(CategoryID.id)
-      //   // console.log(CategoryID.ID)
-      //   guild.channels.create({
-      //     name: "test",
-      //     type: ChannelType.GuildText,
-      //     parentId: CategoryID.id,
-      //   });
-      //   const CategoryIDB = await guild.channels.cache.find(
-      //     (channel) =>
-      //       channel.type === ChannelType.GuildText &&
-      //       channel.name === `test`
-      //   );
-      //   CategoryIDB.parentId = CategoryID.id;
-      //   console.log("Cat: ")
-      //   console.log(CategoryIDB)
+
+        let statementPointer = await guild.channels.create({
+          name: `statements`,
+          type: ChannelType.GuildText,
+        });
+        let meetingPointer = await guild.channels.create({
+          name: `gov-meetings`,
+          type: ChannelType.GuildText,
+        });
+        statementPointer = String(statementPointer);
+        meetingPointer = String(meetingPointer);
+        console.log(`Searching`);
+        let category = guild.channels.cache.find(
+          (ch) => ch.name === `${userProfile.Country}`
+        );
+        console.log(`Category ID: ${category.id}`);
+        console.log(
+          `Channel Statements ID: ${await statementPointer.substring(2, 21)}`
+        );
+        console.log(
+          `Channel Meetings ID: ${await meetingPointer.substring(2, 21)}`
+        );
+        let statementchannel = await guild.channels.cache.find(
+          (ca) => ca.id === statementPointer.substring(2, 21)
+        );
+        let meetingchannel = await guild.channels.cache.find(
+          (ca) => ca.id === meetingPointer.substring(2, 21)
+        );
+        if (category && statementchannel && meetingchannel) {
+          statementchannel.setParent(category.id);
+          meetingchannel.setParent(category.id);
+        } else
+          console.error(
+            `Missing Category Or Channel \nCategory: ${!!category} \nChannel Meeting: ${!!meetingchannel} \nChannel Statements: ${!!statementchannel}`
+          );
       })();
 
       await userProfile.save().catch(console.error);

@@ -56,7 +56,7 @@ module.exports = {
     );
     let channel = await guild.channels.cache.find(ca => ca.id === pointer.substring(2, 21));
     if(category && channel) channel.setParent(category.id);
-    // else console.error(`Missing Category Or Channel \nCategory: ${!!category} \nChannel: ${!!channel}`);
+    else console.error(`Missing Category Or Channel \nCategory: ${!!category} \nChannel: ${!!channel}`);
     // channel.setParent(category.id)
 
     // console.log("a")
