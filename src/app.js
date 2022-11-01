@@ -1,9 +1,8 @@
 require("dotenv").config();
 const { token, databaseToken } = process.env;
 const { connect } = require("mongoose");
-const CountryDataA = require('./commands/tools/stats.js')
+const CountryDataA = require("./commands/tools/stats.js");
 const User = require("./schemas/user");
-
 
 const {
   Client,
@@ -14,6 +13,7 @@ const {
 const fs = require("fs");
 
 const client = new Client({ intents: GatewayIntentBits.Guilds });
+// client.user.setActivity("activity");
 client.commands = new Collection();
 client.buttons = new Collection();
 client.selectMenus = new Collection();
@@ -39,8 +39,6 @@ exports.Resources = Resources;
 //       const CDB = JSON.parse(UserData);
 //       exports.CountryData = CBD;
 // })
-
-
 
 const functionFolders = fs.readdirSync("./src/functions");
 for (const folder of functionFolders) {

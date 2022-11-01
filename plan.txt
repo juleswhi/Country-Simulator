@@ -1,18 +1,22 @@
-json holding all country stats/owners/resources?
+// json holding all country stats/owners/resources? <>
 
 commands for
-    claiming country;
-    making alliances;
+//    claiming country; <>
+//    making alliances; <>
     researching resources;
-    making statements;
+/    making statements;
     politcal voting;
     approval rating;
+    sending resources;
+
+    Potentially random-based invasion mechanic if country is not taken
+        - if country is taken then leave up to player?
 
 
-separate channels for each country;
+// separate channels for each country;
 
-    create channel if country is claimed;
-    only one country per user;
+//     create channel if country is claimed;
+//     only one country per user;
 
 
 
@@ -27,10 +31,10 @@ separate channels for each country;
  }
 
 
-create category if channel / catgeory not found
+// create category if channel / catgeory not found
 
 use guild.presence_count for votes
-
+    - if not enough players are online, vote wont work
 
 
 channels
@@ -44,3 +48,83 @@ channels
 Add code for migration of account / check if interaction.user.tag is in db and if there is a user with tag in guild, if not, allow migration of account
 
 FIX: if country isnt recognised, dont send message in statements, send message in general or channel where message was sent
+
+// FIX: Handle Countries incorrectly entered not working
+
+FIX: made code work on all servers: fix hard coded guild ID
+
+// FIX: Country in json is actually country
+
+ADD: Send country list in pm
+
+ADD: IN HELP MESSAGE: TELL USER TO ALLOW DM FROM SERVER IN { PRIVACY SETTINGS }
+
+ADD: command /countries to send pm to user with all countries
+
+ADD: gift stuff to allianced countries
+
+ADD: potentially have every country a differnt json file, so that they can have real-life current stats
+
+ADD: WARS
+
+FIX: Staetmtn modal says alliance selector at the top
+
+FIX: if someone uses /stats with no country error will be thrown
+
+ADD: invading countries
+
+ADD: Fee for inciting war, as well as a minimum army population of at least 10 percent of total population
+
+
+ADD: massive increase to stats page with multiple more stats/possibly option for multiple pages of stats?
+
+ADD: A algorithm to check chance of winning war / take into account 
+    {
+        population
+        politcal influence
+        army population
+        alliances
+        approvalrating
+    }
+
+ADD: Perks to being in an alliance
+    {
+        one country advancing a resource also advances allied countries resources at a mitigated rate 
+    }
+
+ADD: Create Channel specifically for bot commands?
+
+ADD: Alliance Names etc NATO
+ADD: ALLIANCE GROUPS, 
+    {
+        Instead Of Having Multiple Alliance Files, have one file for each alliance group with a unique name
+        Vote to invite new people into allinace, reactions?
+    }
+
+ADD: invading npc countries
+
+ADD: ONLY ROLE CAN VIEW GOV MEETINGS // IF ALLIANCED THEN CAN VIEW STATEMENTS
+
+FIX: UPDATE /STATS
+
+ADD: Co-managae country?
+
+ADD: Possible Cooldown system to stateing in united nations
+    OR
+        Only able to state in united nations at specified time-frames, called {Meetings} (undecided)
+
+
+ADD: superpower country system: only top country stats-wise is a superpower
+
+IDEA: Cusotmisable world map?
+
+ADD: Channel with all resources
+
+
+ADD: Ways to Improve your approval rating
+    {
+        
+    }
+
+
+#FIBONACCI ADD: use fibonacci sequence for investing in materials 

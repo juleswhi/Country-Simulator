@@ -14,53 +14,34 @@ module.exports = {
   async run(interaction, client) {
     const paragraph = interaction.fields
       .getTextInputValue("statementInput")
-      .toLowerCase();
-
-    const statementsChannel = client.channels.cache.find(
-      (channel) => channel.name === "statements"
-    );
-
-    const guild = await client.guilds.cache.get("1032948591112765510");
-    console.log(`Gotten Guild`);
-    statementsChannel.send(paragraph);
 
     const user = await User.findOne({
       userName: interaction.user.tag,
     });
-    // if (
-    //   client.channels.cache.find(
-    //     (channel) =>
-    //       channel.type === ChannelType.GuildCategory &&
-    //       channel.name === `${user.Country}`
-    //   )
-    // ) {
-    //   return;
-    // }
-    guild.channels.create({
-      name: `${user.Country}`,
-      type: ChannelType.GuildCategory,
-    });
-
-    let pointer = await guild.channels.create({
-      name: `Test`,
-      type: ChannelType.GuildText,
-    });
-    pointer = String(pointer);
-    console.log(`Searching`);
-    let category = guild.channels.cache.find(
-      (ch) => ch.name === `${user.Country}`
+    const cat = await client.channels.cache.find(
+      (channel) => channel.name === `${user.Country}`
     );
-    console.log(`Category ID: ${category.id}`);
-    console.log(
-      `Channel ID: ${await pointer.substring(2, 21)}`
+    // console.log(cat)
+    const statementsChannel = await client.channels.cache.find(
+      (channel) =>
+        channel.parentId === cat.id
+        && channel.type === ChannelType.GuildText
     );
-    let channel = await guild.channels.cache.find(ca => ca.id === pointer.substring(2, 21));
-    if(category && channel) channel.setParent(category.id);
-    else console.error(`Missing Category Or Channel \nCategory: ${!!category} \nChannel: ${!!channel}`);
-    // channel.setParent(category.id)
 
-    // console.log("a")
-    // console.log(category)
-    // pointer.setParent()
+    const channel = await client.channels.cache.find(
+      (channel) => channel.name === `statements`
+    );
+    // console.log(`Statement Channel is: ${statementsChannel}`)
+
+    console.log(`Substring = ${paragraph.substring(0,6)}`)
+    // console.log(`Statemtn Channel Object \n\n\n\n ${statementsChannel} \n\n\n\n`)
+    if (paragraph.substring(0,6) === "$GLOBAL") {
+      channel.send(`@everyone ${user.userName} Has Made An Announcement On Behalf Of ${user.Country}\n
+        \"${paragraph.substring(6, paragraph.length)}\"`);
+    } else {
+      console.log(`${user.userName} has sent a statement to thier local chat`)
+      statementsChannel.send(paragraph);
+    }
   },
 };
+// $GLOBAL

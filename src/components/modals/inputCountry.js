@@ -3,7 +3,7 @@ const User = require("../../schemas/user");
 const Resources = require("../../app.js");
 const mongoose = require("mongoose");
 const { find } = require("../../schemas/user");
-const { ChannelType } = require("discord.js");
+const { ChannelType, PermissionsBitField } = require("discord.js");
 
 module.exports = {
   data: {
@@ -32,10 +32,12 @@ module.exports = {
         hasCountry = true;
       }
     }
-    if (!hasCountry)
+    if (!hasCountry) {
       channel.send(
         `Your Country Was Not Recognised :(, \n type /countries to see all available countries`
       );
+      return;
+    }
 
     let userProfile = await User.findOne({ userName: interaction.user.tag });
     const userData = await User.find();
@@ -51,34 +53,89 @@ module.exports = {
         _id: mongoose.Types.ObjectId(),
         userName: interaction.user.tag,
         Country: Country,
-        ApprovalRating: (Math.floor(Math.random() * 101) + 1).toString(),
+        ApprovalRating: (Math.floor(Math.random() * 100) + 1).toString(),
         Resources: {
-          InvestMoney: propMoney.toString(),
-          YearlyIncome: (propMoney / 100).toString(),
+          InvestMoney: `${propMoney.toString()}B`,
+          YearlyIncome: `${(propMoney / 100).toString()}B`,
           SpecialResource:
             resources[Math.floor(Math.random() * resources.length)],
           InvestedCompanies: [],
         },
-        land: ["Country"],
+        land: [Country],
       });
 
       const guild = await client.guilds.cache.get("1032948591112765510");
       console.log(`User Profile = ${userProfile}`);
-
       (async () => {
+        let every = guild.roles.cache.find(
+          (r) => r.name === `${userProfile.Country}`
+        );
+        every = String(every);
+        const CountryRole = await guild.roles.create({
+          name: `${userProfile.Country}`,
+        });
+        console.log(`Country ROLE:` + CountryRole);
         guild.channels.create({
           name: `${userProfile.Country}`,
           type: ChannelType.GuildCategory,
+          permissionOverwrites: [
+            {
+              id: interaction.guild.id,
+              allow: [PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.Connect],
+              deny: [PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.Speak, PermissionsBitField.Flags.MentionEveryone],
+            },
+            {
+              id: CountryRole,
+              allow: [
+                PermissionsBitField.Flags.ViewChannel,
+                PermissionsBitField.Flags.SendMessages,
+                PermissionsBitField.Flags.Speak
+              ],
+            },
+          ],
         });
 
+        // const cat = guild.channels.cache.find((channel) => channel.name === `${userProfile.Country}`);
+
+        if (
+          interaction.guild.roles.cache.find(
+            (r) => r.name === `${userProfile.Country}`
+          )
+        ) {
+          let role = interaction.guild.roles.cache.find(
+            (r) => r.name === `${userProfile.Country}`
+          );
+          let member = interaction.member;
+          member.roles.add(role).catch(console.error);
+        }
+
+        let role = interaction.guild.roles.cache.find(
+          (r) => r.name === `${userProfile.Country}`
+        );
+        let member = interaction.member;
+        member.roles.add(role).catch(console.error);
+        console.log(
+          `Found Role: ${await CountryRole} and added ${
+            interaction.user.tag
+          } to it`
+        );
+
+        const everyoneRole = guild.roles.everyone;
+
+        console.log(`Every role = ${await every}`);
+
+        console.log(`Found Role Everyone: ${everyoneRole}`);
+
         let statementPointer = await guild.channels.create({
-          name: `statements`,
+          name: `${userProfile.Country}-statements`,
           type: ChannelType.GuildText,
+          permissionOverwrites: [{ id: interaction.guild.id, allow: [PermissionsBitField.Flags.SendMessages] }],
         });
         let meetingPointer = await guild.channels.create({
           name: `gov-meetings`,
-          type: ChannelType.GuildText,
+          type: ChannelType.GuildVoice,
         });
+
         statementPointer = String(statementPointer);
         meetingPointer = String(meetingPointer);
         console.log(`Searching`);
@@ -98,9 +155,20 @@ module.exports = {
         let meetingchannel = await guild.channels.cache.find(
           (ca) => ca.id === meetingPointer.substring(2, 21)
         );
+
+        // await statementchannel.permissionOverwrites.create(statementchannel.guild.roles.everyone, { ViewChannel: false });
+        // console.log(`Set Permissions For @everyone`)
+        // statementchannel.permissionOverwrites.create(statementchannel.guild.roles.everyone, { ViewChannel: false });
+
         if (category && statementchannel && meetingchannel) {
-          statementchannel.setParent(category.id);
-          meetingchannel.setParent(category.id);
+          await statementchannel.setParent(category.id);
+          await meetingchannel.setParent(category.id);
+          statementchannel
+            .lockPermissions()
+            .then(console.log(`Locked Permissios For ${statementchannel}`));
+          meetingchannel
+            .lockPermissions()
+            .then(console.log(`Locked Permissions For ${meetingchannel}`));
         } else
           console.error(
             `Missing Category Or Channel \nCategory: ${!!category} \nChannel Meeting: ${!!meetingchannel} \nChannel Statements: ${!!statementchannel}`
