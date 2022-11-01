@@ -9,7 +9,7 @@ module.exports = {
      
         const modal = new ModalBuilder()
             .setCustomId(`inputStatement`)
-            .setTitle(`Alliance Selector`);
+            .setTitle(`Statement Creator`);
 
         const textInput = new TextInputBuilder()
             .setCustomId("statementInput")

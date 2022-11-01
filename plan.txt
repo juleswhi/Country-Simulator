@@ -67,7 +67,7 @@ ADD: potentially have every country a differnt json file, so that they can have 
 
 ADD: WARS
 
-FIX: Staetmtn modal says alliance selector at the top
+// FIX: Staetmtn modal says alliance selector at the top
 
 FIX: if someone uses /stats with no country error will be thrown
 
@@ -123,7 +123,7 @@ ADD: Channel with all resources
 
 ADD: Ways to Improve your approval rating
     {
-        
+
     }
 
 

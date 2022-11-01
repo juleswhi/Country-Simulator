@@ -33,11 +33,11 @@ module.exports = {
     );
     // console.log(`Statement Channel is: ${statementsChannel}`)
 
-    console.log(`Substring = ${paragraph.substring(0,6)}`)
+    // console.log(`Substring = ${paragraph.substring(0,6)}`)
     // console.log(`Statemtn Channel Object \n\n\n\n ${statementsChannel} \n\n\n\n`)
-    if (paragraph.substring(0,6) === "$GLOBAL") {
+    if (paragraph.substring(0,7) === "$GLOBAL") {
       channel.send(`@everyone ${user.userName} Has Made An Announcement On Behalf Of ${user.Country}\n
-        \"${paragraph.substring(6, paragraph.length)}\"`);
+        \"${paragraph.substring(7, paragraph.length)}\"`);
     } else {
       console.log(`${user.userName} has sent a statement to thier local chat`)
       statementsChannel.send(paragraph);
