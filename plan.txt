@@ -55,9 +55,12 @@ FIX: made code work on all servers: fix hard coded guild ID
 
 // FIX: Country in json is actually country
 
-ADD: Send country list in pm
+// ADD: Send country list in pm
 
 ADD: IN HELP MESSAGE: TELL USER TO ALLOW DM FROM SERVER IN { PRIVACY SETTINGS }
+
+FIX: Alliance dissolving does 
+
 
 ADD: command /countries to send pm to user with all countries
 
