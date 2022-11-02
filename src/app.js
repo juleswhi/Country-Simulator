@@ -65,6 +65,14 @@ for (const folder of functionFolders) {
   require(`./functions/${folder}/${file}`)(client);
 }
 
+function test()
+{
+  console.log(`Testing Function`)
+  document.getElementById("a").innerHTML = "Test"
+}
+
+
+
 client.handleEvents();
 client.handleCommands();
 client.handleComponents();
