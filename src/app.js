@@ -55,5 +55,7 @@ client.handleCommands();
 client.handleComponents();
 client.login(token);
 (async () => {
+  console.log(`Connect To Bot ${token}`);
+  console.log(`Connected To Database ${databaseToken}`);
   await connect(databaseToken).catch(console.error);
 })();
