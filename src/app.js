@@ -12,9 +12,12 @@ app.get("./", function ( req, res )
 {
   res.send("Hello World").then(
     console.log(`Send Res`)
-  );
-})
-
+    );
+  })
+  
+  app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server Up on port 3000`)
+  });
 
 const {
   Client,
@@ -71,7 +74,3 @@ client.login(token);
   console.log(`Connected To Database ${databaseToken}`);
   await connect(databaseToken).catch(console.error);
 })();
-
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`Server Up on port 3000`)
-});
