@@ -14,7 +14,14 @@
     <p id="a">
 
     </p>
-    <script src="../src/app.js"></script>
-    <button onclick="test()">Test Button</button>
+    <button onclick="abc()">Test Button</button>
+    <script src="../src/app.js">
+        function abc()
+        {
+            console.log("Running function");
+            document.getElementById("a").innerHTML = "test";
+            console.log("Set Text");
+        }
+    </script>
 </body>
 </html>
