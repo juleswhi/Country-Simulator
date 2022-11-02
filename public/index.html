@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Country Manager</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="styles.css", type="text/css">
 </head>
 <body>
     <h1>
@@ -14,14 +14,14 @@
     <p id="a">
 
     </p>
-    <button onclick="abc()">Test Button</button>
-    <script src="../src/app.js">
+    <script>
         function abc()
         {
             console.log("Running function");
             document.getElementById("a").innerHTML = "test";
             console.log("Set Text");
         }
-    </script>
+        </script>
+        <button onclick="abc()">Test Button</button>
 </body>
 </html>
