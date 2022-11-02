@@ -11,7 +11,7 @@ module.exports = {
       userName: interaction.user.tag,
     });
 
-    
+    console.log(`The Country Data Of ${interaction.user.tag} is: \n${CountryData}`);
 
     //    console.log(interaction.user.tag)
     const embed = new EmbedBuilder()
