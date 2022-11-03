@@ -2,9 +2,7 @@ const User = require("../../schemas/user");
 const CountrySchema = require("../../schemas/country");
 const Resources = require("../../schemas/resource");
 const mongoose = require("mongoose");
-const { find } = require("../../schemas/user");
 const { ChannelType, PermissionsBitField } = require("discord.js");
-const resource = require("../../schemas/resource");
 
 module.exports = {
   data: {
@@ -21,16 +19,20 @@ module.exports = {
     const channel = client.channels.cache.find(
       (channel) => channel.name === "general"
     );
-    const countries = CountrySchema.find();
-    const resources = Resources.find();
-    const chosenCountry = CountrySchema.find();
+    // const countries = CountrySchema.find();
+    // console.log(`Countries = ${countries}`)
+    // const resources = Resources.find();
+    // const chosenCountry = CountrySchema.find();
+    const countries = await CountrySchema.find();
+    // console.log("Coutrys: " + countries)
+
     for (const CountryChoice of countries) {
       if (
         interaction.fields.getTextInputValue("countryInput").toLowerCase() ===
         CountryChoice.country.toLowerCase()
       ) {
         // channel.send(`Your Country of choice is, ${CountryChoice}`);
-        Country = CountryChoice;
+        Country = CountryChoice.country;
         hasCountry = true;
       }
     }
@@ -43,8 +45,9 @@ module.exports = {
 
     let userProfile = await User.findOne({ userName: interaction.user.tag });
     const userData = await User.find();
-    const resourceList = Resources.find();
-    var chosenResource = resourceList[Math.floor(Math.random()*resourceList.length)];
+    const resourceList = await Resources.find();
+    var chosenResource =
+      resourceList[Math.floor(Math.random() * resourceList.length)];
 
     let CountryTaken = false;
     for (const user of userData) {
@@ -69,9 +72,9 @@ module.exports = {
         Population: CountrySchema.find({ country: Country }).population,
         Invested: [],
         InBank: 0,
-        Land: [Country],
+        Land: [{ Name: Country }],
         Resources: [],
-        Popularity: Math.floor(math.random() * 10) + 50,
+        Popularity: Math.floor(Math.random() * 10) + 50,
         ArmyPercent: 7,
         Stock: null,
         NationalBank: {
@@ -80,7 +83,7 @@ module.exports = {
           Amount: 0,
         },
         TotalUVR: 0,
-        SpecialResource: chosenResource,
+        SpecialResource: chosenResource.Name,
         SpecialResourceMultiplier: 1, // use fibonacci?
       });
 
@@ -206,7 +209,7 @@ module.exports = {
             `Missing Category Or Channel \nCategory: ${!!category} \nChannel Meeting: ${!!meetingchannel} \nChannel Statements: ${!!statementchannel}`
           );
       })();
-
+      console.log(`saving`);
       await userProfile.save().catch(console.error);
       await interaction.reply({
         content: `${interaction.user.tag} Has been added to the database, with country ${Country}`,
