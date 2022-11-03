@@ -3,6 +3,14 @@ const { token, databaseToken } = process.env;
 const { connect } = require("mongoose");
 const CountryDataA = require("./commands/tools/stats.js");
 const User = require("./schemas/user");
+
+
+/*
+
+
+// Implemintation for a website 
+
+
 const express = require('express')
 const app = express()
 
@@ -19,6 +27,8 @@ app.get("./", function ( req, res )
     console.log(`Server Up on port 3000`)
   });
 
+
+*/
 const {
   Client,
   collection,
