@@ -1,5 +1,5 @@
 const User = require("../../schemas/user");
-const Country = require("../../schemas/country");
+const CountrySchema = require("../../schemas/country");
 const Resources = require("../../schemas/resource");
 const mongoose = require("mongoose");
 const { find } = require("../../schemas/user");
@@ -21,7 +21,7 @@ module.exports = {
     const channel = client.channels.cache.find(
       (channel) => channel.name === "general"
     );
-    const countries = Country.find();
+    const countries = CountrySchema.find();
     const resources = Resources.find();
     const chosenCountry = Country.find();
     for (const CountryChoice of countries) {
