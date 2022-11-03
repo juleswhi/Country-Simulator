@@ -3,6 +3,7 @@ const User = require('../src/schemas/user')
 
 async function getUser()
 {
+    console.log(`In script`)
     const user = await User.findOne({ userName: "urmum#5267" })
     console.log(`user is ${!!user}`);
     if(user)
