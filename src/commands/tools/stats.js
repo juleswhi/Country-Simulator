@@ -20,7 +20,7 @@ module.exports = {
     const YearlyIncome = CountryData.Money.YearlyIncome;
     const SpecialResource = CountryData.SpecialResource;
     const ApprovalRating = CountryData.ApprovalRating;
-    const Alliance = CountryData.Alliance;
+    var Alliance = CountryData.Alliance;
     if(Alliance === null) Alliance = "None";
     const Population = CountryData.Population;
 
