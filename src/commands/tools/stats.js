@@ -38,21 +38,21 @@ module.exports = {
       { name: `Country Name`, value: Name },
       {
         name: `Investment Money`,
-        value: InvestMoney,
+        value: InvestMoney.toString(),
         inline: true,
       },
       {
         name: `Yearly Income`,
-        value: YearlyIncome,
+        value: YearlyIncome.toString(),
         inline: true,
       },
       {
         name: `Special Resource`,
-        value: SpecialResource,
+        value: SpecialResource.toString(),
       },
-      { name: `Approval Rating`, value: ApprovalRating },
-      { name: `Alliance`, value: Alliance },
-      { name: `Population`, value: Population },
+      { name: `Approval Rating`, value: ApprovalRating.toString() },
+      { name: `Alliance`, value: Alliance.toString() },
+      { name: `Population`, value: Population.toString() },
     ]);
 
     await interaction.reply({
