@@ -23,7 +23,7 @@ module.exports = {
     );
     const countries = CountrySchema.find();
     const resources = Resources.find();
-    const chosenCountry = Country.find();
+    const chosenCountry = CountrySchema.find();
     for (const CountryChoice of countries) {
       if (
         interaction.fields.getTextInputValue("countryInput").toLowerCase() ===
@@ -66,7 +66,7 @@ module.exports = {
           InvestMoney: propMoney,
           YearlyIncome: propMoney / 100,
         },
-        Population: Country.find({ country: Country }).population,
+        Population: CountrySchema.find({ country: Country }).population,
         Invested: [],
         InBank: 0,
         Land: [Country],
