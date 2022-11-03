@@ -4,7 +4,6 @@ const { connect } = require("mongoose");
 const CountryDataA = require("./commands/tools/stats.js");
 const User = require("./schemas/user");
 
-
 /*
 
 
@@ -57,8 +56,20 @@ const raw3 = fs.readFileSync("src/CountryData/SpecialResources.json");
 const Resources = JSON.parse(raw3);
 exports.Resources = Resources;
 
+const raw4 = fs.readdirSync("src/CountryData/companies");
+var companies = []
+for(const company of raw4)
+{
+  const comp = fs.readFileSync(`src/CountryData/companies/${company}`);
+  const compProfile = JSON.parse(comp);
+  companies.push(compProfile);
+}
+console.log(`All Countries Are ${companies.length}`);
+console.log(`Country 1: ${companies[0]}`)
+exports.Companies = companies;
+
 // (async () => {
-  //     const UserData = await User.find({
+//     const UserData = await User.find({
 //         userName: interaction.user.tag,
 //       });
 //       const CDB = JSON.parse(UserData);
@@ -68,20 +79,12 @@ exports.Resources = Resources;
 const functionFolders = fs.readdirSync("./src/functions");
 for (const folder of functionFolders) {
   const functionFiles = fs
-  .readdirSync(`./src/functions/${folder}`)
-  .filter((file) => file.endsWith(".js"));
-  
+    .readdirSync(`./src/functions/${folder}`)
+    .filter((file) => file.endsWith(".js"));
+
   for (const file of functionFiles)
-  require(`./functions/${folder}/${file}`)(client);
+    require(`./functions/${folder}/${file}`)(client);
 }
-
-function test()
-{
-  console.log(`Testing Function`)
-  document.getElementById("a").innerHTML = "Test"
-}
-
-
 
 client.handleEvents();
 client.handleCommands();

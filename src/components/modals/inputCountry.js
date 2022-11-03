@@ -1,9 +1,10 @@
-const CountryData = require("../../app.js");
 const User = require("../../schemas/user");
-const Resources = require("../../app.js");
+const Country = require("../../schemas/country");
+const Resources = require("../../schemas/resource");
 const mongoose = require("mongoose");
 const { find } = require("../../schemas/user");
 const { ChannelType, PermissionsBitField } = require("discord.js");
+const resource = require("../../schemas/resource");
 
 module.exports = {
   data: {
@@ -15,17 +16,18 @@ module.exports = {
     } catch (err) {}
   },
   async run(interaction, client) {
-    const resources = Resources.Resources;
     let hasCountry = false;
     let Country = null;
     const channel = client.channels.cache.find(
-      (channel) => channel.name === "statements"
+      (channel) => channel.name === "general"
     );
-    const choices = CountryData.Countries;
-    for (const CountryChoice of choices) {
+    const countries = Country.find();
+    const resources = Resources.find();
+    const chosenCountry = Country.find();
+    for (const CountryChoice of countries) {
       if (
         interaction.fields.getTextInputValue("countryInput").toLowerCase() ===
-        CountryChoice.toLowerCase()
+        CountryChoice.country.toLowerCase()
       ) {
         // channel.send(`Your Country of choice is, ${CountryChoice}`);
         Country = CountryChoice;
@@ -41,6 +43,9 @@ module.exports = {
 
     let userProfile = await User.findOne({ userName: interaction.user.tag });
     const userData = await User.find();
+    const resourceList = Resources.find();
+    var chosenResource = resourceList[Math.floor(Math.random()*resourceList.length)];
+
     let CountryTaken = false;
     for (const user of userData) {
       if (user.Country === Country) CountryTaken = true;
@@ -54,14 +59,29 @@ module.exports = {
         userName: interaction.user.tag,
         Country: Country,
         ApprovalRating: (Math.floor(Math.random() * 100) + 1).toString(),
-        Resources: {
-          InvestMoney: `${propMoney.toString()}B`,
-          YearlyIncome: `${(propMoney / 100).toString()}B`,
-          SpecialResource:
-            resources[Math.floor(Math.random() * resources.length)],
-          InvestedCompanies: [],
+        Alliance: null,
+        War: { atWar: false, Country: null },
+        EconomyRating: 20,
+        Money: {
+          InvestMoney: propMoney,
+          YearlyIncome: propMoney / 100,
         },
-        land: [Country],
+        Population: Country.find({ country: Country }).population,
+        Invested: [],
+        InBank: 0,
+        Land: [Country],
+        Resources: [],
+        Popularity: Math.floor(math.random() * 10) + 50,
+        ArmyPercent: 7,
+        Stock: null,
+        NationalBank: {
+          Name: `${Country} National Bank`,
+          Rate: 0.5,
+          Amount: 0,
+        },
+        TotalUVR: 0,
+        SpecialResource: chosenResource,
+        SpecialResourceMultiplier: 1, // use fibonacci?
       });
 
       const guild = await client.guilds.cache.get("1032948591112765510");
@@ -81,15 +101,22 @@ module.exports = {
           permissionOverwrites: [
             {
               id: interaction.guild.id,
-              allow: [PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.Connect],
-              deny: [PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.Speak, PermissionsBitField.Flags.MentionEveryone],
+              allow: [
+                PermissionsBitField.Flags.ViewChannel,
+                PermissionsBitField.Flags.Connect,
+              ],
+              deny: [
+                PermissionsBitField.Flags.SendMessages,
+                PermissionsBitField.Flags.Speak,
+                PermissionsBitField.Flags.MentionEveryone,
+              ],
             },
             {
               id: CountryRole,
               allow: [
                 PermissionsBitField.Flags.ViewChannel,
                 PermissionsBitField.Flags.SendMessages,
-                PermissionsBitField.Flags.Speak
+                PermissionsBitField.Flags.Speak,
               ],
             },
           ],
@@ -129,7 +156,12 @@ module.exports = {
         let statementPointer = await guild.channels.create({
           name: `${userProfile.Country}-statements`,
           type: ChannelType.GuildText,
-          permissionOverwrites: [{ id: interaction.guild.id, allow: [PermissionsBitField.Flags.SendMessages] }],
+          permissionOverwrites: [
+            {
+              id: interaction.guild.id,
+              allow: [PermissionsBitField.Flags.SendMessages],
+            },
+          ],
         });
         let meetingPointer = await guild.channels.create({
           name: `gov-meetings`,

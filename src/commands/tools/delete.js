@@ -3,6 +3,7 @@ const CountryData = require("../../app.js");
 const chalk = require("chalk");
 const User = require("../../schemas/user");
 const Alliance = require("../../schemas/alliance");
+const Company = require("../../schemas/company")
 const { Countries } = require("../../app");
 module.exports = {
   data: new SlashCommandBuilder()
@@ -22,11 +23,18 @@ module.exports = {
       console.log(`deleting alliances with ${interaction.user.tag}`);
       await Alliance.deleteMany({ CountryA: interaction.user.tag });
       await interaction.reply(`deleting alliuance`);
-    } else if (interaction.options.getString(`input`) === `all`) {
+    } else if(interaction.options.getString(`input`) === `companies`)
+    {
+      console.log(`deleting all companies`);
+      await Company.deleteMany();
+      await interaction.reply(`deleting companies`)
+    } 
+    else if (interaction.options.getString(`input`) === `all`) {
       const guild = await client.guilds.cache.get("1032948591112765510");
       console.log(chalk.red(`WARNING: DELETING EVERYTHING`));
       await User.deleteMany();
       await Alliance.deleteMany();
+      await Company.deleteMany();
       for (const country of Countries) {
         console.log(`Country is: ${country}`);
         if (

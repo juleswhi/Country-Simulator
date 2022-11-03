@@ -47,7 +47,7 @@ channels
 
 Add code for migration of account / check if interaction.user.tag is in db and if there is a user with tag in guild, if not, allow migration of account
 
-FIX: if country isnt recognised, dont send message in statements, send message in general or channel where message was sent
+// FIX: if country isnt recognised, dont send message in statements, send message in general or channel where message was sent
 
 // FIX: Handle Countries incorrectly entered not working
 

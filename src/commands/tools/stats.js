@@ -11,7 +11,9 @@ module.exports = {
       userName: interaction.user.tag,
     });
 
-    console.log(`The Country Data Of ${interaction.user.tag} is: \n${CountryData}`);
+    console.log(
+      `The Country Data Of ${interaction.user.tag} is: \n${CountryData}`
+    );
 
     //    console.log(interaction.user.tag)
     const embed = new EmbedBuilder()
@@ -28,19 +30,22 @@ module.exports = {
       { name: `Country Name`, value: CountryData[0].Country },
       {
         name: `Investment Money`,
-        value: CountryData[0].Resources.InvestMoney,
+        value: CountryData[0].Money.InvestMoney,
         inline: true,
       },
       {
         name: `Yearly Income`,
-        value: CountryData[0].Resources.YearlyIncome,
+        value: CountryData[0].Money.YearlyIncome,
         inline: true,
       },
       {
         name: `Special Resource`,
-        value: CountryData[0].Resources.SpecialResource,
+        value: CountryData[0].SpecialResource,
       },
       { name: `Approval Rating`, value: CountryData[0].ApprovalRating },
+      { name: `Alliance`, value: CountryData[0].Alliance, inline: true },
+      { name: `At War:`, value: CountryData[0].War.atWar, inline: true },
+      { name: `Population`, value: CountryData[0].Population },
     ]);
 
     await interaction.reply({
