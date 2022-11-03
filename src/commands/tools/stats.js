@@ -7,13 +7,21 @@ module.exports = {
     .setName("stats")
     .setDescription("Returns the users stats"),
   async execute(interaction, client) {
-    const CountryData = await User.find({
+    const CountryData = await User.findOne({
       userName: interaction.user.tag,
     });
 
     console.log(
       `The Country Data Of ${interaction.user.tag} is: \n${CountryData}`
     );
+
+    const Name = CountryData.Country;
+    const InvestMoney = CountryData.Money.InvestMoney;
+    const YearlyIncome = CountryData.Money.YearlyIncome;
+    const SpecialResource = CountryData.SpecialResource;
+    const ApprovalRating = CountryData.ApprovalRating;
+    const Alliance = CountryData.Alliance;
+    const Population = CountryData.Population;
 
     //    console.log(interaction.user.tag)
     const embed = new EmbedBuilder()
@@ -27,25 +35,24 @@ module.exports = {
       .setTimestamp(Date.now()); // Potentially create custom time scale, 1 day irl = 1 year
 
     embed.addFields([
-      { name: `Country Name`, value: CountryData[0].Country },
+      { name: `Country Name`, value: Name },
       {
         name: `Investment Money`,
-        value: CountryData[0].Money.InvestMoney,
+        value: InvestMoney,
         inline: true,
       },
       {
         name: `Yearly Income`,
-        value: CountryData[0].Money.YearlyIncome,
+        value: YearlyIncome,
         inline: true,
       },
       {
         name: `Special Resource`,
-        value: CountryData[0].SpecialResource,
+        value: SpecialResource,
       },
-      { name: `Approval Rating`, value: CountryData[0].ApprovalRating },
-      { name: `Alliance`, value: CountryData[0].Alliance, inline: true },
-      { name: `At War:`, value: CountryData[0].War.atWar, inline: true },
-      { name: `Population`, value: CountryData[0].Population },
+      { name: `Approval Rating`, value: ApprovalRating },
+      { name: `Alliance`, value: Alliance },
+      { name: `Population`, value: Population },
     ]);
 
     await interaction.reply({
