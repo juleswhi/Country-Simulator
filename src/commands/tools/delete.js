@@ -14,7 +14,7 @@ module.exports = {
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   async execute(interaction, client) {
-    const Countries = CountryData.Countries;
+    // const Countries = CountryData.Countries;
     if (interaction.options.getString(`input`) === `user`) {
       console.log(`deleting user ${interaction.user.tag}`);
       await User.deleteOne({ userName: interaction.user.tag });
@@ -44,19 +44,19 @@ module.exports = {
       await User.deleteMany();
       await Alliance.deleteMany();
       await Company.deleteMany();
-      for (const country of Countries) {
-        console.log(`Country is: ${country}`);
-        if (
-          interaction.guild.roles.cache.find((r) => r.name === `${country}`)
-        ) {
-          console.log(`in role if statement`);
-          interaction.guild.roles.cache.delete((r) => r.name === `${country}`);
-          console.log(
-            `Deleted Role: ${interaction.guild.roles.cache.find(
-              (r) => r.name === `${country}`
-            )}`
-          );
-        }
+      // for (const country of Countries) {
+      //   console.log(`Country is: ${country}`);
+      //   if (
+      //     interaction.guild.roles.cache.find((r) => r.name === `${country}`)
+      //   ) {
+      //     console.log(`in role if statement`);
+      //     guild.roles.cache.delete((r) => r.name === `${country}`);
+      //     console.log(
+      //       `Deleted Role: ${interaction.guild.roles.cache.find(
+      //         (r) => r.name === `${country}`
+      //       )}`
+      //     );
+      //   }
         //     if (guild.channels.cache.find((r) => r.name === `${country}`)) {
         //       console.log(`in channel if statement`);
         //       const fetch = await guild.channels.cache.find(
@@ -72,8 +72,8 @@ module.exports = {
         //       fetch.delete().then(console.log(chalk.red(`deleted fetch`)));
         //     //   fetch2.delete().then(console.log(chalk.red(`deleted fetch2`)));
         //     }
-      }
-      await interaction.reply(`deleting everything`);
+      
+      // await interaction.reply(`deleting everything`);
     }
   },
 };
