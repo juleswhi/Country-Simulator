@@ -32,7 +32,9 @@ module.exports = {
         CountryChoice.country.toLowerCase()
       ) {
         // channel.send(`Your Country of choice is, ${CountryChoice}`);
-        Country = CountryChoice.country;
+        Country = CountryChoice.country
+        CountryData = CountryChoice.population
+        console.log(CountryData)
         hasCountry = true;
       }
     }
@@ -46,8 +48,12 @@ module.exports = {
     let userProfile = await User.findOne({ userName: interaction.user.tag });
     const userData = await User.find();
     const resourceList = await Resources.find();
+    
     var chosenResource =
       resourceList[Math.floor(Math.random() * resourceList.length)];
+    var CountryChoice = await CountrySchema.find({ country: Country });
+    console.log(`Country Choice Is ${CountryChoice.population}`)
+    
 
     let CountryTaken = false;
     for (const user of userData) {
@@ -69,7 +75,7 @@ module.exports = {
           InvestMoney: propMoney,
           YearlyIncome: propMoney / 100,
         },
-        Population: CountrySchema.find({ country: Country }).population,
+        Population: CountryData,
         Invested: [],
         InBank: 0,
         Land: [{ Name: Country }],

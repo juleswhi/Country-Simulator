@@ -19,16 +19,25 @@ module.exports = {
       console.log(`deleting user ${interaction.user.tag}`);
       await User.deleteOne({ userName: interaction.user.tag });
       await interaction.reply(`Deleting user`);
-    } else if (interaction.options.getString(`input`) === `alliance`) {
-      console.log(`deleting alliances with ${interaction.user.tag}`);
-      await Alliance.deleteMany({ CountryA: interaction.user.tag });
-      await interaction.reply(`deleting alliuance`);
     } else if(interaction.options.getString(`input`) === `companies`)
     {
       console.log(`deleting all companies`);
       await Company.deleteMany();
       await interaction.reply(`deleting companies`)
     } 
+    else if(interaction.options.getString(`input`) === `alliances` || interaction.options.getString(`input`) === `alliance`)
+    {
+      console.log(`Deleting All Alliances`);
+      await Alliance.deleteMany();
+      await interaction.reply(`deleting alliances`)
+      const users = await User.find();
+      for(const user of users)
+      {
+        var userProfile = await User.findOne({ userName: user.userName });
+        userProfile.Alliance = null;
+        userProfile.save();
+      }
+    }
     else if (interaction.options.getString(`input`) === `all`) {
       const guild = await client.guilds.cache.get("1032948591112765510");
       console.log(chalk.red(`WARNING: DELETING EVERYTHING`));

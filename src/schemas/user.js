@@ -18,7 +18,7 @@ const userSchema = new Schema({
   Land: [{ Name: String }],
   Resources: [{ Name: String, Amount: Number }],
   Popularity: Number,
-  ArmyPercent: Number,
+  ArmySize: Number,
   Stock: String,
   NationalBank: {
     Name: String,

@@ -21,8 +21,19 @@ module.exports = {
     const SpecialResource = CountryData.SpecialResource;
     const ApprovalRating = CountryData.ApprovalRating;
     var Alliance = CountryData.Alliance;
-    if(Alliance === null) Alliance = "None";
     const Population = CountryData.Population;
+    
+    // for(const ally of alliances)
+    // {
+    //   for(const member of ally.Members)
+    //   {
+    //     if(member.Name === interaction.user.tag)
+    //     {
+    //       AllianceName = ally.Name;
+    //     }
+    //   }
+    // }
+    if(Alliance === null) Alliance = "None";
 
     //    console.log(interaction.user.tag)
     const embed = new EmbedBuilder()
@@ -39,21 +50,22 @@ module.exports = {
       { name: `Country Name`, value: Name },
       {
         name: `Investment Money`,
-        value: InvestMoney.toString(),
+        value: `${InvestMoney.toString()}B`,
         inline: true,
       },
       {
         name: `Yearly Income`,
-        value: YearlyIncome.toString(),
+        value: `${YearlyIncome.toString()}B`,
         inline: true,
       },
       {
         name: `Special Resource`,
         value: SpecialResource.toString(),
+        inline: true
       },
-      { name: `Approval Rating`, value: ApprovalRating.toString() },
-      { name: `Alliance`, value: Alliance.toString() },
-      { name: `Population`, value: Population.toString() },
+      { name: `Approval Rating`, value: ApprovalRating.toString(), inline: true },
+      { name: `Alliance`, value: Alliance.toString(), inline: true },
+      { name: `Population`, value: Population.toString(), inline: true },
     ]);
 
     await interaction.reply({
