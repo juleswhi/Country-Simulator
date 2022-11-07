@@ -4,9 +4,10 @@ const userSchema = new Schema({
   _id: Schema.Types.ObjectId,
   userName: String,
   Country: String,
-  ApprovalRating: Number,
+  WorldApprovalRating: Number,
+  LocalApprovalRating: Number,
   Alliance: String,
-  War: { atWar: Boolean, Country: String },
+  War: String,
   EconomyRating: Number,
   Money: {
     InvestMoney: Number,

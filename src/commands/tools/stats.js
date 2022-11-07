@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder, Embed } = require("discord.js");
 const User = require("../../schemas/user");
+const Guild = require("../../schemas/guild");
 const fs = require("fs");
 const mongoose = require("mongoose");
 module.exports = {
@@ -10,6 +11,9 @@ module.exports = {
     const CountryData = await User.findOne({
       userName: interaction.user.tag,
     });
+
+    const date = await Guild.findOne({ guildId: interaction.guild.id });
+    const now = date.Year();
 
     console.log(
       `The Country Data Of ${interaction.user.tag} is: \n${CountryData}`
@@ -22,7 +26,7 @@ module.exports = {
     const ApprovalRating = CountryData.ApprovalRating;
     var Alliance = CountryData.Alliance;
     const Population = CountryData.Population;
-    
+
     // for(const ally of alliances)
     // {
     //   for(const member of ally.Members)
@@ -33,7 +37,7 @@ module.exports = {
     //     }
     //   }
     // }
-    if(Alliance === null) Alliance = "None";
+    if (Alliance === null) Alliance = "None";
 
     //    console.log(interaction.user.tag)
     const embed = new EmbedBuilder()
@@ -44,7 +48,7 @@ module.exports = {
       // .setImage()
       // .setThumbnail
 
-      .setTimestamp(Date.now()); // Potentially create custom time scale, 1 day irl = 1 year
+      .setTimestamp(now); // Potentially create custom time scale, 1 day irl = 1 year
 
     embed.addFields([
       { name: `Country Name`, value: Name },
@@ -61,9 +65,13 @@ module.exports = {
       {
         name: `Special Resource`,
         value: SpecialResource.toString(),
-        inline: true
+        inline: true,
       },
-      { name: `Approval Rating`, value: ApprovalRating.toString(), inline: true },
+      {
+        name: `Approval Rating`,
+        value: ApprovalRating.toString(),
+        inline: true,
+      },
       { name: `Alliance`, value: Alliance.toString(), inline: true },
       { name: `Population`, value: Population.toString(), inline: true },
     ]);

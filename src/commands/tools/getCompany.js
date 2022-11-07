@@ -6,6 +6,7 @@ const Country = require("../../schemas/country");
 const Company = require("../../schemas/company");
 const Sector = require("../../schemas/sector");
 const Resource = require("../../schemas/resource");
+const warName = require("../../schemas/warName.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -169,6 +170,18 @@ module.exports = {
     //     .then(console.log(`Saved Profile ${resourceProfile}`))
     //     .catch(console.error);
     // }
+
+    const names = App.Names;
+    for(const name of names)
+    {
+      console.log(`Added ${name}`)
+      const nameProfile = await new warName({
+        _id: name,
+        Name: name,
+        // Date: 
+      })
+    }
+
 
 
 

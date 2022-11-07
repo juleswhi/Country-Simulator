@@ -67,9 +67,10 @@ module.exports = {
         _id: mongoose.Types.ObjectId(),
         userName: interaction.user.tag,
         Country: Country,
-        ApprovalRating: (Math.floor(Math.random() * 100) + 1).toString(),
+        WorldApprovalRating: 50,
+        LocalApprovalRating: 50,
         Alliance: null,
-        War: { atWar: false, Country: null },
+        War: null,
         EconomyRating: 20,
         Money: {
           InvestMoney: propMoney,
