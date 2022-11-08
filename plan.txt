@@ -138,6 +138,8 @@ ADD: tech tree
     }
 
 
+IF USER WANTS TO JOIN ALLIANCE HAVE A BUTTON TO ACCEPT THEM;
+
 
 // Loands to other countries
 

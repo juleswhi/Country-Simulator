@@ -3,6 +3,7 @@ const fs = require("fs");
 const mongoose = require("mongoose");
 const App = require("../../app.js");
 const Country = require("../../schemas/country");
+const Guild = require("../../schemas/guild");
 const Company = require("../../schemas/company");
 const Sector = require("../../schemas/sector");
 const Resource = require("../../schemas/resource");
@@ -21,50 +22,35 @@ module.exports = {
     // console.log(`Third Company Entry Is: ${companies[2]}`);
     // console.log(`Fourth Company Entry Is: ${companies[3]}`);
 
-
-
     // code for adding countries
 
+    // const raw4 = fs.readdirSync("src/CountryData/companies");
+    // var companyProfile;
+    // // var companies = [];
+    // for (const company of raw4) {
+    //   const comp = await fs.readFileSync(
+    //     `src/CountryData/companies/${company}`
+    //   );
+    //   //   console.log(`Comp Is: ${await comp.Name}`)
 
-
-    const raw4 = fs.readdirSync("src/CountryData/companies");
-    var companyProfile;
-    // var companies = [];
-    for (const company of raw4) {
-      const comp = await fs.readFileSync(
-        `src/CountryData/companies/${company}`
-      );
-      //   console.log(`Comp Is: ${await comp.Name}`)
-
-      const profile = JSON.parse(comp);
-      companyProfile = await new Company({
-        _id: mongoose.Types.ObjectId(),
-        Name: profile.Name,
-        Sector: profile.Sector,
-        Symbol: profile.Symbol,
-      });
-      await companyProfile
-        .save()
-        .then(
-          console.log(`Company ${companyProfile.Name} has been added to Profile`)
-        )
-        .catch(console.error);
-    }
-
-
-
-
-
-
-
-
-
-
-
+    //   const profile = JSON.parse(comp);
+    //   companyProfile = await new Company({
+    //     _id: mongoose.Types.ObjectId(),
+    //     Name: profile.Name,
+    //     Sector: profile.Sector,
+    //     Symbol: profile.Symbol,
+    //   });
+    //   await companyProfile
+    //     .save()
+    //     .then(
+    //       console.log(
+    //         `Company ${companyProfile.Name} has been added to Profile`
+    //       )
+    //     )
+    //     .catch(console.error);
+    // }
 
     // code for sectors
-
-
 
     // const Companies = await Company.find();
     // var companies = [];
@@ -150,9 +136,6 @@ module.exports = {
     //     .catch(console.error);
     // }
 
-
-
-
     // code for resources
 
     // const resources = App.Resources;
@@ -171,23 +154,24 @@ module.exports = {
     //     .catch(console.error);
     // }
 
+    // code for war names
+
+    const guild = await Guild.findOne({ guildId: interaction.guild.id });
     const names = App.Names;
-    for(const name of names)
-    {
-      console.log(`Added ${name}`)
+    for (const name of names) {
+      console.log(`Added ${name}`);
       const nameProfile = await new warName({
         _id: name,
         Name: name,
-        // Date: 
-      })
+        // Date: guild.Year
+      });
+      await nameProfile
+        .save()
+        .then(console.log(`Created War Name`))
+        .catch(console.error);
     }
 
-
-
-
-
     // code for countries
-
 
     // const raw = fs.readFileSync(`./src/CountryData/countries.json`);
     // const countryAll = JSON.parse(raw);

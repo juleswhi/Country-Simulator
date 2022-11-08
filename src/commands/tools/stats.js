@@ -12,8 +12,10 @@ module.exports = {
       userName: interaction.user.tag,
     });
 
-    const date = await Guild.findOne({ guildId: interaction.guild.id });
-    const now = date.Year();
+    var date = await Guild.findOne({ guildId: interaction.guild.id });
+    console.log(`Date = ${date.Year}`);
+    var now = new Date(date.Year);
+    var time = now;
 
     console.log(
       `The Country Data Of ${interaction.user.tag} is: \n${CountryData}`
@@ -23,7 +25,8 @@ module.exports = {
     const InvestMoney = CountryData.Money.InvestMoney;
     const YearlyIncome = CountryData.Money.YearlyIncome;
     const SpecialResource = CountryData.SpecialResource;
-    const ApprovalRating = CountryData.ApprovalRating;
+    const LocalApprovalRating = CountryData.LocalApprovalRating;
+    const WorldApprovalRating = CountryData.WorldApprovalRating;
     var Alliance = CountryData.Alliance;
     const Population = CountryData.Population;
 
@@ -48,7 +51,7 @@ module.exports = {
       // .setImage()
       // .setThumbnail
 
-      .setTimestamp(now); // Potentially create custom time scale, 1 day irl = 1 year
+      .setTimestamp(time); // Potentially create custom time scale, 1 day irl = 1 year
 
     embed.addFields([
       { name: `Country Name`, value: Name },
@@ -69,7 +72,12 @@ module.exports = {
       },
       {
         name: `Approval Rating`,
-        value: ApprovalRating.toString(),
+        value: LocalApprovalRating.toString(),
+        inline: true,
+      },
+      {
+        name: `World Approval Rating`,
+        value: WorldApprovalRating.toString(),
         inline: true,
       },
       { name: `Alliance`, value: Alliance.toString(), inline: true },

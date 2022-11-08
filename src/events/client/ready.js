@@ -3,6 +3,6 @@ module.exports = {
     once: true,
     async execute(client) 
     {
-        console.log(`ready ${client.user.tag} is logged in and online`)
+        console.log(`Logged On As ${client.user.tag}`)
     }
 }

@@ -5,30 +5,28 @@ const CountryDataA = require("./commands/tools/stats.js");
 const Guild = require("./schemas/guild");
 const User = require("./schemas/user");
 
-/*
+const http = require("http");
 
+http
+  .createServer(function (req, res) {
+    var filename = "./src/web/index.html";
+    fs.readFile(filename, function(err, data)
+    {
+      if(err)
+      {
+        res.writeHead(404, { 'Content-Type': 'text/html' });
+        return res.end("404 Not Found");
+      }
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.write(data);
+      return res.end();
+    })
 
-// Implemintation for a website 
-
-
-const express = require('express')
-const app = express()
-
-app.use(express.static("public"));
-
-app.get("./", function ( req, res )
-{
-  res.send("Hello World").then(
-    console.log(`Send Res`)
-    );
+    
   })
-  
-  app.listen(process.env.PORT || 3000, () => {
-    console.log(`Server Up on port 3000`)
-  });
+  .listen(8080);
 
 
-*/
 const {
   Client,
   collection,
@@ -72,8 +70,8 @@ for (const company of raw4) {
   const compProfile = JSON.parse(comp);
   companies.push(compProfile);
 }
-console.log(`All Countries Are ${companies.length}`);
-console.log(`Country 1: ${companies[0]}`);
+// console.log(`Loaded ${companies.length} Countries`);
+// console.log(`Country 1: ${companies[0]}`);
 exports.Companies = companies;
 
 // (async () => {
@@ -99,17 +97,20 @@ client.handleCommands();
 client.handleComponents();
 client.login(token);
 (async () => {
-  console.log(`Connect To Bot ${token}`);
-  console.log(`Connected To Database ${databaseToken}`);
+  // console.log(`Connect To Bot ${token}`);
+  // console.log(`Connected To Database ${databaseToken}`);
   await connect(databaseToken).catch(console.error);
 })();
 
-
 setInterval(async () => {
-  var guildProfile = await Guild.findOne({ guildName: 'Discord United Nations' });
+  var guildProfile = await Guild.findOne({
+    guildName: "Discord United Nations",
+  });
   var oldDate = new Date(guildProfile.Year);
   var newDate = new Date(oldDate.setMonth(oldDate.getMonth() + 1));
   guildProfile.Year = newDate.toUTCString();
-  await guildProfile.save().then(console.log(`Current Date is ${guildProfile.Year}`)).catch(console.error);
-
+  await guildProfile
+    .save()
+    .then(console.log(`Current Date is ${guildProfile.Year}`))
+    .catch(console.error);
 }, 1000 * 60 * 60 * 2);

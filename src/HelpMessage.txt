@@ -1,5 +1,0 @@
-Welcome To ${name}!
-
-How to play: 
-    First use the claim command to claim a country!
-        ex: /claim Uganda

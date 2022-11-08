@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
-const warName = require("./warName")
-const alliance = require("./alliance")
+const warName = require("./warName");
+const alliance = require("./alliance");
 
 const warSchema = new Schema({
   _id: String,
@@ -17,6 +17,8 @@ const warSchema = new Schema({
     MoneyInvested: Number,
     ArmyCount: Number,
   },
+  Date: String,
+  Victor: String,
 });
 
 module.exports = model("War", warSchema, "wars");
