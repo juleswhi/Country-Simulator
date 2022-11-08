@@ -1,4 +1,4 @@
-# CountryDiscordBot
+# Country Sim
 
 This discord bot is my Project to simulate united nations inside of a discord server
 
