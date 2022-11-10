@@ -60,5 +60,6 @@ module.exports = {
       const money = doc.Money.InvestMoney;
       doc.Money.InvestMoney = money - 35;
       await doc.save();
+      await interaction.reply({});
   },
 };

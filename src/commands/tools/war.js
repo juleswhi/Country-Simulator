@@ -13,7 +13,7 @@ module.exports = {
 
         const textInput = new TextInputBuilder()
             .setCustomId("warInput")
-            .setLabel("Enter Country To Attack")
+            .setLabel("Enter Country/Alliance To Attack")
             .setRequired(true)
             .setStyle(TextInputStyle.Short);
 

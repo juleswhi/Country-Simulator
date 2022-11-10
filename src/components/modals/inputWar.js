@@ -81,19 +81,31 @@ module.exports = {
           }
         }
       }
+      var enemyAllianceName;
+      var enemyUser = await User.findOne({ Alliance: input });
+
+      var allyAllianceName;
+      var use = await User.findOne({ userName: interaction.user.tag });
+      for(const alliance of Alliances) for(const member of alliance.Members) if(member.Name === interaction.user.tag) allyAllianceName = alliance.Name;
+
+      if(!use.Alliance) allyAllianceName = use.userName;
+      if(!use.Alliance) members = null;
+      if(!enemyUser.Alliance) enemyAllianceName = enemyUser.userName;
+      else enemyAllianceName = input;
+      if(!enemyUser.Alliance) enemyMembers = null;
       var guild = await Guild.findOne({ guildId: interaction.guild.id });
       const name = names[Math.floor(Math.random() * names.length)];
       const warProfile = new War({
         _id: name,
         Name: name,
         AllianceA: {
-          AllianceName: allianceA.Name,
+          AllianceName: allyAllianceName,
           Members: members,
           MoneyInvested: 0,
           ArmyCount: armySize,
         },
         AllianceB: {
-          AllianceName: input,
+          AllianceName: enemyAllianceName,
           Members: enemyMembers,
           MoneyInvested: 0,
           ArmyCount: enemyArmySize,
@@ -101,6 +113,10 @@ module.exports = {
         Date: guild.Year,
         Victor: null,
       });
+      await warProfile.save();
+
+      const channel = client.channels.cache.find((channel) => channel.name === "statements");
+      channel.send(`${warProfile.allianceA.AllianceName} has declared war on ${warProfile.AllianceB.AllianceName}`);
     }
   },
 };
