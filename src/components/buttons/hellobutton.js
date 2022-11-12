@@ -1,11 +1,9 @@
 module.exports = {
     data: {
-        name: `hello`
+        name: `acceptAlliance`
     },
     async execute(interaction, client)
     {
-        await interaction.reply({
-            content: `Hello There!`
-        })
+        
     }
 }

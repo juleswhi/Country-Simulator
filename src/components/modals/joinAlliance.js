@@ -3,6 +3,7 @@ const CountryData = require("../../app.js");
 const User = require("../../schemas/user");
 const Alliance = require("../../schemas/alliance");
 const War = require("../../schemas/war");
+const inpC = require("../../components/modals/inputCountry");
 
 module.exports = {
   data: {
@@ -25,7 +26,7 @@ module.exports = {
     const input = interaction.fields
       .getTextInputValue("joinAllianceInput")
       .toLowerCase();
-      console.log(`Testing For Users`)
+    console.log(`Testing For Users`);
     if (!user) {
       await interaction.reply({
         content: `Please claim a country before joining an alliance`,
@@ -38,17 +39,19 @@ module.exports = {
       console.log(`User is already in an alliance`);
       return;
     }
-    if(user.Money.InvestMoney < 20)
-    {
+    if (user.Money.InvestMoney < 20) {
       console.log(`Not enough money`);
-      await interaction.reply(`Not Enough Money To Join Alliance :( You Must Have More Than 20B`);
+      await interaction.reply(
+        `Not Enough Money To Join Alliance :( You Must Have More Than 20B`
+      );
       return;
     }
-    console.log(`All Alliances: ${alliances}`)
+    console.log(`All Alliances: ${alliances}`);
     for (const alliance of alliances) {
-      console.log(`Input: ${input} and Alliance Name: ${alliance.Name.toLowerCase()}`)
+      console.log(
+        `Input: ${input} and Alliance Name: ${alliance.Name.toLowerCase()}`
+      );
       if (input === alliance.Name.toLowerCase()) {
-        
         console.log(`Alliance Name Valid ${alliance.Nane}`);
 
         var allianceProfile = await Alliance.findOne({ Name: alliance.Name });
@@ -77,6 +80,23 @@ module.exports = {
         await interaction.reply({
           content: `Joined Alliance ${alliance.Name}`,
         });
+
+
+        const pointer = inpC.statementChannel;
+        pointer.send(`Test`)
+
+        // const userPro = await User.findOne({ userName: interaction.user.tag });
+        // const cat = await client.channels.cache.find(
+        //   (cat) => cat.name === `${userPro.Country}`
+        // );
+        // var catId = String(cat.id);
+        // catId = catId.substring(1, catId.length - 1);
+        // console.log(`catId: ${catId}`)
+        // const channel = await client.channels.cache.find(
+        //   (channel) => channel.name === `general`
+        // );
+        // console.log(`Channel Data ${await channel}`);
+        // channel.send("Boobs");
       }
     }
   },

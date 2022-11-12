@@ -1,5 +1,6 @@
 const User = require("../../schemas/user");
 const CountrySchema = require("../../schemas/country");
+const Guild = require("../../schemas/guild");
 const Resources = require("../../schemas/resource");
 const mongoose = require("mongoose");
 const { ChannelType, PermissionsBitField } = require("discord.js");
@@ -32,9 +33,9 @@ module.exports = {
         CountryChoice.country.toLowerCase()
       ) {
         // channel.send(`Your Country of choice is, ${CountryChoice}`);
-        Country = CountryChoice.country
-        CountryData = CountryChoice.population
-        console.log(CountryData)
+        Country = CountryChoice.country;
+        CountryData = CountryChoice.population;
+        console.log(CountryData);
         hasCountry = true;
       }
     }
@@ -48,12 +49,11 @@ module.exports = {
     let userProfile = await User.findOne({ userName: interaction.user.tag });
     const userData = await User.find();
     const resourceList = await Resources.find();
-    
+
     var chosenResource =
       resourceList[Math.floor(Math.random() * resourceList.length)];
     var CountryChoice = await CountrySchema.find({ country: Country });
-    console.log(`Country Choice Is ${CountryChoice.population}`)
-    
+    console.log(`Country Choice Is ${CountryChoice.population}`);
 
     let CountryTaken = false;
     for (const user of userData) {
@@ -93,8 +93,8 @@ module.exports = {
         SpecialResource: chosenResource.Name,
         SpecialResourceMultiplier: 1, // use fibonacci?
       });
-
-      const guild = await client.guilds.cache.get("1032948591112765510");
+      const thisGuild = await Guild.findOne({ guildId: interaction.guild.id });
+      const guild = await client.guilds.cache.get(thisGuild.guildId);
       console.log(`User Profile = ${userProfile}`);
       (async () => {
         let every = guild.roles.cache.find(
@@ -194,6 +194,7 @@ module.exports = {
         let statementchannel = await guild.channels.cache.find(
           (ca) => ca.id === statementPointer.substring(2, 21)
         );
+        exports.statementChannel = statementchannel;
         let meetingchannel = await guild.channels.cache.find(
           (ca) => ca.id === meetingPointer.substring(2, 21)
         );

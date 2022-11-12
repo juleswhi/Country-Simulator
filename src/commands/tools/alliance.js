@@ -5,8 +5,10 @@ const {
   TextInputBuilder,
   TextInputStyle,
   EmbedBuilder,
+  ChannelType,
 } = require("discord.js");
 const Alliance = require("../../schemas/alliance");
+const User = require("../../schemas/user");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -60,6 +62,8 @@ module.exports = {
 
       modal.addComponents(new ActionRowBuilder().addComponents(textInput));
       await interaction.showModal(modal);
+
+      
     } else if (interaction.options.getString(`method`) === `list`) {
       console.log(`Listing Alliances`);
       // list alliances
@@ -90,39 +94,32 @@ module.exports = {
     } else if (interaction.options.getString(`method`) === `stats`) {
       console.log(`Stats`);
       const alliances = await Alliance.find();
-      
-      
-      
-      for(const alliance of alliances)
-      {
-        for(const member of alliance.Members)
-        {
-          if(member.Name === interaction.user.tag)
-          {
-            
+
+      for (const alliance of alliances) {
+        for (const member of alliance.Members) {
+          if (member.Name === interaction.user.tag) {
             console.log(`Alliance Is ${alliance.Name}`);
-            
-            
+
             const embed = new EmbedBuilder()
               .setTitle(`${alliance.Name}'s Stats`)
               .setDescription(`A collection of ${alliance.Name}'s Statistics`);
 
             embed.addFields([
-              { name: `Name`, value: `${alliance.Name}`},
-              { name: `Money Stored`, value: `${alliance.Money}B`, inline: true},
-              { name: `Join Fee`, value: `${alliance.JoinFee}B`, inline: true}
-            ])     
-            
+              { name: `Name`, value: `${alliance.Name}` },
+              {
+                name: `Money Stored`,
+                value: `${alliance.Money}B`,
+                inline: true,
+              },
+              { name: `Join Fee`, value: `${alliance.JoinFee}B`, inline: true },
+            ]);
+
             await interaction.reply({
-              embeds: [embed]
-            })
-
-
+              embeds: [embed],
+            });
           }
         }
       }
-
-
     }
     var embed;
     if (!embed) {
