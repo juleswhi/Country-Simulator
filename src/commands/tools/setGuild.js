@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("database")
-    .setDescription("returns information from the database"),
+    .setName("addguild")
+    .setDescription("adds guild to db"),
   async execute(interaction, client) {
     const date = new Date("January 1, 1000, 12:00:00");
     let guildProfile = await Guild.findOne({ guildId: interaction.guild.id });

@@ -28,9 +28,7 @@ module.exports = {
           if (index > -1) {
             allianceProfile.Members.splice(index, 1);
           }
-          console.log(
-            `Removed User From Array\nNew Array Is ${allianceProfile.Members}`
-          );
+          
 
           if (allianceProfile.Members.length === 0) {
             await Alliance.deleteOne({ Name: alliance.Name });

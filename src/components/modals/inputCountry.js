@@ -94,7 +94,7 @@ module.exports = {
         SpecialResourceMultiplier: 1, // use fibonacci?
       });
       const thisGuild = await Guild.findOne({ guildId: interaction.guild.id });
-      const guild = await client.guilds.cache.get(thisGuild.guildId);
+      const guild = await client.guilds.cache.get(`${thisGuild.guildId}`);
       console.log(`User Profile = ${userProfile}`);
       (async () => {
         let every = guild.roles.cache.find(

@@ -7,8 +7,8 @@ module.exports = {
     async execute( interaction, client )
     {
         const button = new ButtonBuilder()
-            .setCustomId(`hello`)
-            .setLabel(`Click Me!`)
+            .setCustomId("primary")
+            .setLabel(`Clic k Me!`)
             .setStyle(ButtonStyle.Primary);
 
         await interaction.reply({

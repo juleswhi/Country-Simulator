@@ -45,7 +45,7 @@ module.exports = {
     const allianceProfile = await new Alliance({
       _id: mongoose.Types.ObjectId(),
       Name: ChosenName,
-      Members: [{ Name: interaction.user.tag, MoneyContributed: 35 }],
+      Members: [{ Name: interaction.user.tag, MoneyContributed: 35, Chairman: true }],
       Money: 35,
       JoinFee: 20,
     });

@@ -2,6 +2,7 @@ const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const CountryData = require("../../app.js");
 const chalk = require("chalk");
 const User = require("../../schemas/user");
+const Request = require("../../schemas/request")
 const Alliance = require("../../schemas/alliance");
 const Company = require("../../schemas/company");
 const Guild = require("../../schemas/guild");
@@ -42,7 +43,13 @@ module.exports = {
         .then(console.log(`deleted guilds`))
         .catch(console.error);
       await interaction.reply({ content: `deleted guilds` })
-    } else if (interaction.options.getString(`input`) === `all`) {
+    } 
+    else if(interaction.options.getString(`input`) === `request`)
+    {
+      await Request.deleteMany().then(console.log(`Deleted All Requests`)).catch(console.error);
+      await interaction.reply({ content: `Deleted All Requests`})
+    }
+    else if (interaction.options.getString(`input`) === `all`) {
       const guild = await client.guilds.cache.get("1032948591112765510");
       console.log(chalk.red(`WARNING: DELETING EVERYTHING`));
       await User.deleteMany();

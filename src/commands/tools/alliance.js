@@ -70,8 +70,8 @@ module.exports = {
       const alliances = await Alliance.find();
 
       const embed = new EmbedBuilder()
-        .setTitle(`All Alliances`)
-        .setDescription(`This is all of the alliances`);
+        .setTitle(`Alliances`)
+        .setDescription(`List of alliances and their Users`);
 
       // embed.addFields([
       //   {name: `Alliances`,}

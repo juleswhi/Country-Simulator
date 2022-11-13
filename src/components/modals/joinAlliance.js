@@ -3,7 +3,10 @@ const CountryData = require("../../app.js");
 const User = require("../../schemas/user");
 const Alliance = require("../../schemas/alliance");
 const War = require("../../schemas/war");
+const Request = require("../../schemas/request")
+const Guild = require("../../schemas/guild")
 const inpC = require("../../components/modals/inputCountry");
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
 
 module.exports = {
   data: {
@@ -15,88 +18,104 @@ module.exports = {
     // } catch (err) {}
   },
   async run(interaction, client) {
-    console.log(
-      `Joining Allinace with country ${interaction.fields
-        .getTextInputValue("joinAllianceInput")
-        .toLowerCase()}`
-    );
+  
 
     const alliances = await Alliance.find();
     const user = await User.findOne({ userName: interaction.user.tag });
     const input = interaction.fields
       .getTextInputValue("joinAllianceInput")
       .toLowerCase();
-    console.log(`Testing For Users`);
     if (!user) {
       await interaction.reply({
         content: `Please claim a country before joining an alliance`,
       });
-      console.log(`User Does Not Have An Alliance ${interaction.user.tag}`);
       return;
     }
     if (user.Alliance != null) {
       await interaction.reply({ content: `You are already in a alliance!` });
-      console.log(`User is already in an alliance`);
       return;
     }
     if (user.Money.InvestMoney < 20) {
-      console.log(`Not enough money`);
       await interaction.reply(
         `Not Enough Money To Join Alliance :( You Must Have More Than 20B`
       );
       return;
     }
-    console.log(`All Alliances: ${alliances}`);
     for (const alliance of alliances) {
-      console.log(
-        `Input: ${input} and Alliance Name: ${alliance.Name.toLowerCase()}`
-      );
+     
       if (input === alliance.Name.toLowerCase()) {
-        console.log(`Alliance Name Valid ${alliance.Nane}`);
 
         var allianceProfile = await Alliance.findOne({ Name: alliance.Name });
 
         if (allianceProfile.Members.length > 3) {
           console.log(`Alliance Too Big`);
-          await interaction.reply({
+          await interaction.deferReply({
             content: `There Are Too Many People In That Alliance ${alliance.Name}`,
           });
           return;
         }
-
-        const allianceNewMember = {
-          Name: interaction.user.tag,
-          MoneyContributed: allianceProfile.JoinFee,
-        };
-        allianceProfile.Members.push(allianceNewMember);
-        console.log(
-          `Alliance: ${allianceProfile.Name}'s Members Are: ${allianceProfile.Members}`
-        );
-        await allianceProfile.save();
-        const investMoney = user.Money.InvestMoney;
-        user.Money.InvestMoney = investMoney - 20;
-        user.Alliance = alliance.Name;
-        await user.save();
-        await interaction.reply({
-          content: `Joined Alliance ${alliance.Name}`,
+        const guild = await Guild.findOne({ guildId: interaction.guild.id });
+        const RequestProfile = await new Request({
+          _id: `${interaction.user.tag}${alliance.Name}${Math.floor(Math.random() * 5332321)}`,
+          requestingUser: interaction.user.tag,
+          requestingAlliance: alliance.Name,
+          Date: guild.Year
         });
+        await RequestProfile.save();
+        var incomingUser;
+        for(const member of alliance.Members)
+        {
+          if(member.Chairman === true){
+            incomingUser = await User.findOne({ userName: member.Name})
+          }
+        }
+        console.log(`${incomingUser.Country}`)
+        const fixedCountryname = incomingUser.Country.replace(' ', '-');
+        console.log(`Fixed Name: ${fixedCountryname}`)
+        const channel = await client.channels.cache.find(
+          (channel) => channel.name === `${fixedCountryname.toLowerCase()}-statements`
+        );
+        console.log(channel)
+        const button = new ButtonBuilder()
+          .setCustomId(`AcceptAllianceRequest`)
+          .setLabel(`Accept ${interaction.user.tag} Into ${alliance.Name}`)
+          .setStyle(ButtonStyle.Primary);
+        await channel.send({
+          components: [new ActionRowBuilder().addComponents(button)],
+        });
+        await interaction.reply({
+          content: `You Have Sent Your Request`,
+          ephemeral: true
+        })
 
 
-        const pointer = inpC.statementChannel;
-        pointer.send(`Test`)
 
-        // const userPro = await User.findOne({ userName: interaction.user.tag });
-        // const cat = await client.channels.cache.find(
-        //   (cat) => cat.name === `${userPro.Country}`
-        // );
-        // var catId = String(cat.id);
-        // catId = catId.substring(1, catId.length - 1);
-        // console.log(`catId: ${catId}`)
-        // const channel = await client.channels.cache.find(
-        //   (channel) => channel.name === `general`
-        // );
-        // console.log(`Channel Data ${await channel}`);
-        // channel.send("Boobs");
+
+        // const allianceNewMember = {
+        //   Name: interaction.user.tag,
+        //   MoneyContributed: allianceProfile.JoinFee,
+        //   Chairman: false,
+        // };
+        // allianceProfile.Members.push(allianceNewMember);
+        
+        // await allianceProfile.save();
+        // const investMoney = user.Money.InvestMoney;
+        // user.Money.InvestMoney = investMoney - 20;
+        // user.Alliance = alliance.Name;
+        // await user.save();
+
+
+
+
+
+        // await interaction.reply({
+        //   content: `Joined Alliance ${alliance.Name}`,
+        // });
+
+        // const pointer = inpC.statementChannel;
+        // pointer.send(`Test`)
+
+        
       }
     }
   },

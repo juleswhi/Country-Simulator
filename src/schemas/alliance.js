@@ -4,7 +4,7 @@ const allianceSchema = new Schema({
   _id: Schema.Types.ObjectId,
   Name: String,
   Members: [
-    { Name: String, MoneyContributed: Number }
+    { Name: String, MoneyContributed: Number, Chairman: Boolean }
   ],
   Money: Number,
   JoinFee: Number
