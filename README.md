@@ -1,6 +1,3 @@
-# Country Sim
-h
-This discord bot is my Project to simulate united nations inside of a discord server
+# Country Sim / __Pséftiki Chóra__
 
-Countless hours have been spent perfecting every detail
-
+## A Civ-like Country Simulator, Built Straight Into Discord
