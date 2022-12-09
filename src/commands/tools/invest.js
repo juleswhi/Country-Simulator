@@ -4,9 +4,8 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('invest')
         .setDescription('Invest In Something!'),
-    async execute( interaction, client )
-    {
-     
+    async execute(interaction, client) {
+
         const modal = new ModalBuilder()
             .setCustomId(`inputInvestment`)
             .setTitle(`Invest Selector`);
@@ -17,9 +16,10 @@ module.exports = {
             .setRequired(true)
             .setStyle(TextInputStyle.Short);
 
-            modal.addComponents(new ActionRowBuilder().addComponents(textInput));
+        modal.addComponents(new ActionRowBuilder().addComponents(textInput));
 
-            await interaction.showModal(modal);
-        
+        await interaction.showModal(modal);
+
+
     }
 }

@@ -14,7 +14,7 @@ const userSchema = new Schema({
     YearlyIncome: Number,
   },
   Population: String,
-  Invested: [{ Name: String, Cost: Number }],
+  Invested: [{ Name: String, Cost: Number, Amount: Number}],
   InBank: Number,
   Land: [{ Name: String }],
   Resources: [{ Name: String, Amount: Number }],
