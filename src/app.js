@@ -5,28 +5,6 @@ const CountryDataA = require("./commands/tools/stats.js");
 const Guild = require("./schemas/guild");
 const User = require("./schemas/user");
 
-// const http = require("http");
-
-// http
-//   .createServer(function (req, res) {
-//     var filename = "./src/web/index.html";
-//     fs.readFile(filename, function(err, data)
-//     {
-//       if(err)
-//       {
-//         res.writeHead(404, { 'Content-Type': 'text/html' });
-//         return res.end("404 Not Found");
-//       }
-//       res.writeHead(200, { 'Content-Type': 'text/html' });
-//       res.write(data);
-//       return res.end();
-//     })
-
-    
-//   })
-//   .listen(8080);
-
-
 const {
   Client,
   GatewayIntentBits,
@@ -41,14 +19,6 @@ client.buttons = new Collection();
 client.selectMenus = new Collection();
 client.modals = new Collection();
 client.commandArray = [];
-
-// var date = new Date("January 2, 1000, 12:00:00")
-// let day = date.getDate()
-// console.log(`day is ${day}`)
-
-// const raw = fs.readFileSync("src/CountryData/data.json");
-// const CountryData = JSON.parse(raw);
-// exports.CountryData = CountryData;
 
 const raw2 = fs.readFileSync("src/CountryData/countries.json");
 const countries = JSON.parse(raw2);
@@ -69,17 +39,8 @@ for (const company of raw4) {
   const compProfile = JSON.parse(comp);
   companies.push(compProfile);
 }
-// console.log(`Loaded ${companies.length} Countries`);
-// console.log(`Country 1: ${companies[0]}`);
-exports.Companies = companies;
 
-// (async () => {
-//     const UserData = await User.find({
-//         userName: interaction.user.tag,
-//       });
-//       const CDB = JSON.parse(UserData);
-//       exports.CountryData = CBD;
-// })
+exports.Companies = companies;
 
 const functionFolders = fs.readdirSync("./src/functions");
 for (const folder of functionFolders) {
@@ -95,9 +56,8 @@ client.handleEvents();
 client.handleCommands();
 client.handleComponents();
 client.login(token);
+
 (async () => {
-  // console.log(`Connect To Bot ${token}`);
-  // console.log(`Connected To Database ${databaseToken}`);
   await connect(databaseToken).catch(console.error);
 })();
 
