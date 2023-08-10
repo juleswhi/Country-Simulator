@@ -1,7 +1,8 @@
 # Country Simulator
+Discord JS port of civs.world
+Integrates with a Discord Bot
 
-A Civ-like Country Simulator, Built Straight Into Discord
 
-Uses discord.js
 
-## This project is currently in development
+
+
